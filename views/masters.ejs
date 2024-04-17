@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Inner Page - iPortfolio Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="/assets/vendor/owl.carousel//assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+<!-- FontAwesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- =======================================================
+  * Template Name: iPortfolio - v2.0.3
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .glowing-button {
+        background:#040b14;
+        position: relative;
+        border: none;
+        color: #fff; /* Overwrite color */
+        padding: 10px 20px;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    @keyframes glowing {
+        from {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+        to {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.8);
+        }
+    }
+
+#count {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  left: 15px;
+  bottom: 15px;
+  background: #149ddd;
+  color: #fff;
+  transition: display 0.5s ease-in-out;
+  z-index: 99999;
+}
+
+#count i {
+  font-size: 24px;
+  position: absolute;
+  top: 7px;
+  left: 8px;
+}
+
+#count:hover {
+  color: #fff;
+  background: #2eafec;
+  transition: background 0.2s ease-in-out;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="<%=user.picture%>" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="/"><%=user.name%></a></h1>
+        <!-- <div class="social-links mt-3 text-center">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div> -->
+      </div>
+
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="/#hero"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li class="active"><a href="/instructions"><i class="bx bx-server"></i> Cast Your Vote</a></li>
+          <li><a href="/#about"><i class="bx bx-user"></i> <span>About AUEC</span></a></li>
+          <li><a href="/#resume"><i class="bx bx-file-blank"></i> <span>Structure of SG</span></a></li>
+          <li><a href="/#portfolio"><i class="bx bx-book-content"></i> Candidates</a></li>
+          <li><a href="/#testimonials"><i class="bx bx-server"></i> Note from Commissioners</a></li>
+          <li><a href="/#contact"><i class="bx bx-envelope"></i> Contact</a></li>
+          <li><a href="/logout"><i class="bx bx-envelope"></i> Logout</a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+      <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div style="position:sticky;" class="d-flex justify-content-between align-items-center">
+          <h2>Voting Portal</h2>
+          <div style="text-align:center;margin:10px;">
+            <div style="font-size:18px" id="timer"></div>
+          </div>          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Caste your Vote</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container">
+        <a style="opacity:0.7" href="/vote"><i style="font-size:26px" class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Back to Main Page</a><br />
+        <div>
+          <br />
+          <p>You may select upto a maximum of <%=allowed%> candidates from the list. Click on the 'Select' button next to the candidate to choose them. When done selecting all, <span style="color:red">Submit Your Vote at the BOTTOM of the page by clicking the SUBMIT button.</span></p>
+        </div>
+        <%for(var i=0;i<council.length;i++){%>
+        <div class="card">
+          <div style="width:100%;height:3vh;background: #040b14;
+          ;"></div>
+          <div class="card-body">
+            <h5 style="display:inline" class="card-title"> <%=i+1%> <%=council[i].name%></h5><br />            
+            <span style="margin:auto;font-size:14px;display:inline;color:grey;margin:0px;padding:0px;width:auto;height:auto">
+                <%=council[i].affiliation%>
+            </span>
+            <a id="voteButton<%=i%>" onclick="selectCandidate('<%=i%>', '<%=council[i].name%>', '<%=council[i].uuid%>')" style="display:inline;float:right;background-color: #040b14;" href="javascript:void" class="btn btn-primary">Select</a>
+          </div>
+        </div>
+        <br />
+        <%}%>   
+        <div class="card">
+          <div style="width:100%;height:3vh;background: #040b14;
+          ;"></div>
+          <div class="card-body">
+            <h5 style="display:inline" class="card-title"> NOTA (None of the Above)</h5><br />            
+            <span style="margin:auto;font-size:14px;display:inline;color:grey;margin:0px;padding:0px;width:auto;height:auto">
+              Note: Selecting this option will unselect all other options if you have chosen any.
+          </span>
+            <a onclick="selectNota()" id="nota" style="display:inline;float:right;background-color: #040b14;" href="javascript:void" class="btn btn-primary">Select</a>
+          </div>
+        </div> 
+        <br />    
+      </div>
+      <div style="text-align: center;">
+        <button id="submit-votes" onclick="submitVotes()" style="background-color: red; color: white; padding: 10px 15px; border: none; border-radius: 8px; cursor: pointer;font-size:18px;margin:auto">Submit Selected Votes</button>
+    </div>
+    </section>
+
+  </main><!-- End #main -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>AUEC</span></strong>
+      </div>
+      
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  <script>
+    let seconds = 60; // Initial number of seconds
+     function countdown() {
+         // Display the initial value
+         document.getElementById('timer').innerText = seconds+ " Seconds remaining";
+
+         // Update the timer every second
+         const intervalId = setInterval(() => {
+             seconds--;
+             document.getElementById('timer').innerText = seconds + " Seconds remaining";
+
+             // Check if the timer has reached 0
+             if (seconds <= 0) {
+                 clearInterval(intervalId); // Stop the timer
+                 document.getElementById('timer').innerText = 'Time\'s up!';
+                 window.location.href = "/logout"; // Redirect to "/logout"
+             } else if (seconds < 10) {
+                 document.getElementById('timer').style.color = 'red'; // Change color to red when less than 10 seconds
+             }
+         }, 1000); // Update every second (1000 milliseconds)
+     }
+
+     // Call the countdown function to start the timer
+     countdown();
+   </script>
+  <script>
+    let maxSelections = parseInt("<%=allowed%>"); // Maximum number of candidates that can be selected
+    let selectedCandidates = {}; // Object to store selected candidates
+  
+    // Function to handle candidate selection
+     // Function to handle candidate selection
+     // Function to handle NOTA selection
+    function selectNota() {
+        const notaButton = document.getElementById('nota');
+
+        // If NOTA is already selected, deselect it
+        if (selectedCandidates['nota']) {
+            delete selectedCandidates['nota'];
+            notaButton.style.background = '#040b14';
+            notaButton.innerText = 'Select';
+        } else {
+            // Deselect all other candidates
+            for (const key in selectedCandidates) {
+                const candidateButton = document.getElementById(`voteButton${key}`);
+                candidateButton.style.background = '#040b14';
+                candidateButton.innerText = 'Select';
+                delete selectedCandidates[key];
+            }
+            
+            // Select NOTA
+            selectedCandidates['nota'] = { name: 'NOTA', affiliation: 'ef0b976e-c1c0-4e4c-a015-0cf81ac47fd3' };
+            notaButton.style.background = 'grey';
+            notaButton.innerText = 'Deselect';
+        }
+
+        console.log(selectedCandidates); // Output selected candidates (for testing)
+    }
+    function selectCandidate(index, name, affiliation) {
+      const button = document.getElementById(`voteButton${index}`); 
+      const notaButton = document.getElementById('nota');
+
+      if (selectedCandidates[index]) {
+        delete selectedCandidates[index]; // Deselect if already selected
+        button.style.background="#040b14";
+        button.innerText="Select";
+      } else {
+        if (selectedCandidates['nota']) {
+          delete selectedCandidates['nota'];
+          notaButton.style.background = '#040b14';
+          notaButton.innerText = 'Select';
+      }
+        if (Object.keys(selectedCandidates).length < maxSelections) {
+          selectedCandidates[index] = { name, affiliation }; // Select if within limit
+          button.style.background="grey";
+          button.innerText="Deselect";
+        } else {
+          alert(`You can only select up to ${maxSelections} candidates. Deselect some if you wish to vote for someone else.`);
+        }
+      }
+      console.log(selectedCandidates); // Output selected candidates (for testing)
+    }
+  
+    function submitVotes() {
+      // Example of how to send selectedCandidates object to the backend using fetch
+      document.getElementById("submit-votes").disabled=true;
+      fetch('/submit-votes/masters', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(selectedCandidates)
+      })
+      .then(data => {
+
+        alert(data);
+        // Optionally, you can perform some action after votes are submitted
+        window.location.href = "/logout";
+      })
+      .catch(error => {
+        console.error('Error submitting votes:', error);
+      });
+    }
+  </script>
+  <!-- Vendor JS Files -->
+  <script>
+    function toggleParagraphs(paragraphNumber) {
+      // Hide all paragraphs
+      for (var i = 1; i <= 6; i++) {
+        document.getElementById(i).style.display = 'none';
+      }
+    
+      // Display the clicked paragraph
+      var nextParagraph = document.getElementById(paragraphNumber);
+      if (nextParagraph) {
+        nextParagraph.style.display = 'block';
+      } else {
+        // Redirect to a specific route when reaching the end
+        window.location.href = 'portfolio-details.html';
+      }
+    }
+    </script>
+    
+    
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+  <script src="/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="/assets/vendor/counterup/counterup.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="/assets/vendor/typed.js/typed.min.js"></script>
+  <script src="/assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+
+</body>
+
+</html>

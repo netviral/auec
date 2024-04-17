@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Inner Page - iPortfolio Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: iPortfolio - v2.0.3
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .glowing-button {
+        background:#040b14;
+        position: relative;
+        border: none;
+        color: #fff; /* Overwrite color */
+        padding: 10px 20px;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    @keyframes glowing {
+        from {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+        to {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.8);
+        }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="<%=user.picture%>" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="/"><%=user.name%></a></h1>
+        <!-- <div class="social-links mt-3 text-center">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div> -->
+      </div>
+
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="/#hero"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li class="active"><a href="/instructions"><i class="bx bx-server"></i> Cast Your Vote</a></li>
+          <li><a href="/#about"><i class="bx bx-user"></i> <span>About AUEC</span></a></li>
+          <li><a href="/#resume"><i class="bx bx-file-blank"></i> <span>Structure of SG</span></a></li>
+          <li><a href="/#portfolio"><i class="bx bx-book-content"></i> Candidates</a></li>
+          <li><a href="/#testimonials"><i class="bx bx-server"></i> Note from Commissioners</a></li>
+          <li><a href="/#contact"><i class="bx bx-envelope"></i> Contact</a></li>
+          <li><a href="/logout"><i class="bx bx-envelope"></i> Logout</a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+      <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Voting Portal</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Caste your Vote</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="containerv">
+        <div style="display:block" id="1">
+          Welcome to the voting portal. Here are some general guidelines:
+          <ul>
+            <li>Read each option carefully before making your choice.</li>
+            <li>Vote based on your own judgment and beliefs.</li>
+            <li>Ensure you have a stable internet connection.</li>
+          </ul>    
+          <button type="submit" class="glowing-button" onclick="toggleParagraphs(2)">Next</button>
+    
+        </div>
+        <div style="display:none" id="2">
+          Please be cautious while voting:
+    <ul>
+      <li>Double-check your selection before submitting.</li>
+      <li>Do not share your login credentials with anyone.</li>
+      <li>Report any suspicious activity or misactions immediately.</li>
+    </ul>
+    <button type="submit" class="glowing-button" onclick="toggleParagraphs(3)">Next</button>
+
+  </div>
+        <div style="display:none" id="3">
+          You can only vote once:
+    <ul>
+      <li>Once you've submitted your vote, you cannot change it.</li>
+      <li>Make sure to make an informed decision before voting.</li>
+      <li>If you encounter any issues, contact support.</li>
+    </ul>
+    <button type="submit" class="glowing-button" onclick="toggleParagraphs(4)">Next</button>
+
+  </div>
+        <div style="display:none" id="4">
+          Your data is secure:
+          <ul>
+            <li>We do not store who you voted for.</li>
+            <li>We only store that you voted as a boolean value.</li>
+            <li>Below is an example to explain how it works:</li>
+          </ul>
+          <table border="1">
+            <tr>
+              <th>Candidate</th>
+              <th>Number of Votes</th>
+            </tr>
+            <tr>
+              <td>Candidate A</td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>Candidate B</td>
+              <td>3</td>
+            </tr>
+          </table>
+          <p>When you vote for a candidate, we add 1 to their vote count without storing your identity.</p>
+          <button type="submit" class="glowing-button" onclick="toggleParagraphs(5)">Next</button>
+
+        </div>
+        <div style="display:none" id="5">
+          Thank you for participating in the voting process. Your contribution is valuable.<br />
+          <button type="submit" class="glowing-button" onclick="toggleParagraphs(6)">Next</button>
+
+        </div>
+        <div style="display:none" id="6">
+          Remember, democracy thrives on participation. Your vote matters.<br />
+          <button type="submit" class="glowing-button" onclick="toggleParagraphs(7)">Next</button>
+
+        </div>
+        <!-- <button type="submit" class="glowing-button" onclick="toggleParagraphs()">Next</button> -->
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>AUEC</span></strong>
+      </div>
+      
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script>
+    function toggleParagraphs(paragraphNumber) {
+      // Hide all paragraphs
+      for (var i = 1; i <= 6; i++) {
+        document.getElementById(i).style.display = 'none';
+      }
+    
+      // Display the clicked paragraph
+      var nextParagraph = document.getElementById(paragraphNumber);
+      if (nextParagraph) {
+        nextParagraph.style.display = 'block';
+      } else {
+        // Redirect to a specific route when reaching the end
+        window.location.href = '/vote';
+      }
+    }
+    </script>
+    
+    
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/counterup/counterup.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

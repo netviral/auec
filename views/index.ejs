@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>AUEC</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="/assets/vendor/owl.carousel//assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: iPortfolio - v2.0.3
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .glowing-button {
+        position: relative;
+        border: none;
+        color: #272829; /* Overwrite color */
+        padding: 10px 20px;
+        border-radius: 5px;
+        overflow: hidden;
+        animation: glowing 2s infinite alternate;
+    }
+
+    @keyframes glowing {
+        from {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+        to {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.8);
+        }
+    }
+
+    .candidate-name{
+      font-size: 22px;
+      color:grey;
+      margin:auto;
+      justify-self: center;
+      margin:10px;
+    }
+    
+    .portfolio-wrap {
+      max-height:400px;
+      /* Ensure the container does not expand beyond its content */
+      overflow: hidden;
+      margin-bottom: 20px;
+      border-radius: 20px;
+
+    }
+
+    .portfolio-wrap .img-fluid {
+      /* Set image to fill container */
+      width: 100%;
+      height: auto;
+      /* Apply rounded corners */
+      object-fit: cover;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="<%=user.picture%>" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="/"><%=user.name%></a></h1>
+        <!-- <div class="social-links mt-3 text-center">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div> -->
+      </div>
+
+      <nav class="nav-menu">
+        <ul>
+          <li class="active"><a href="#hero"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/instructions"><i class="bx bx-server"></i> Cast Your Vote</a></li>
+          <li><a href="#about"><i class="bx bx-user"></i> <span>About AUEC</span></a></li>
+          <li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Structure of SG</span></a></li>
+          <li><a href="#portfolio"><i class="bx bx-book-content"></i> Candidates</a></li>
+          <li><a href="#testimonials"><i class="bx bx-server"></i> Note from Commissioners</a></li>
+          <li><a href="#contact"><i class="bx bx-envelope"></i> Contact</a></li>
+          <li><a href="/logout"><i class="bx bx-envelope"></i> Logout</a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+      <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="hero-container" data-aos="fade-in">
+      <h1>AUEC</h1>
+      <!-- <p>AUEC <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer"></span></p> -->
+      <p>Voting Portal</p>
+      <button type="submit" class="glowing-button">Get Started</button>
+</div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>About</h2>
+          <p> The AUEC refers to the body established under Part VIII, Chapter I of the Constitution of the Student Government. It is governed by the Electoral Code and bound to impartiality in every act and decision. The Ashoka University Election Commission shall be the sole body responsible for conducting elections to the Student Government.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4" data-aos="fade-right">
+            <img src="/assets/img/AUEC_Picture.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+            <p>The Ashoka University Election Commission (AUEC) upholds the core values of fairness, transparency, and impartiality in its role as the governing body for student government elections. Established under Part VIII, Chapter I of the Constitution of the Student Government, the AUEC operates under the guidelines of the Electoral Code, ensuring that every action and decision is made without bias or favoritism. As the sole authority responsible for conducting elections to the Student Government, the AUEC plays a crucial role in upholding democratic principles and ensuring that the voices of the student body are heard and respected.
+            </p>
+              <p>
+              The AUEC is committed to promoting democratic ideals and fostering a culture of civic engagement among the student body. It strives to create a level playing field for all candidates, ensuring that elections are conducted in a free and fair manner. By upholding these values, the AUEC not only fulfills its mandate to oversee elections but also contributes to the development of responsible and informed citizens who are actively involved in shaping the future of their community.
+
+
+
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Facts Section ======= -->
+    <!-- <section id="facts" class="facts">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Facts</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row no-gutters">
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up">
+            <div class="count-box">
+              <i class="icofont-simple-smile"></i>
+              <span data-toggle="counter-up">232</span>
+              <p><strong>Happy Clients</strong> consequuntur quae</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="count-box">
+              <i class="icofont-document-folder"></i>
+              <span data-toggle="counter-up">521</span>
+              <p><strong>Projects</strong> adipisci atque cum quia aut</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="count-box">
+              <i class="icofont-live-support"></i>
+              <span data-toggle="counter-up">1,463</span>
+              <p><strong>Hours Of Support</strong> aut commodi quaerat</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="count-box">
+              <i class="icofont-users-alt-5"></i>
+              <span data-toggle="counter-up">15</span>
+              <p><strong>Hard Workers</strong> rerum asperiores dolor</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>End Facts Section -->
+
+    <!-- ======= Skills Section ======= -->
+    <!-- <section id="skills" class="skills section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Skills</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row skills-content">
+
+          <div class="col-lg-6" data-aos="fade-up">
+
+            <div class="progress">
+              <span class="skill">HTML <i class="val">100%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill">CSS <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill">JavaScript <i class="val">75%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="progress">
+              <span class="skill">PHP <i class="val">80%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill">WordPress/CMS <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill">Photoshop <i class="val">55%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    End Skills Section -->
+
+    <!-- ======= Resume Section ======= -->
+    <section id="resume" class="resume section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Structure of the Student Government</h2>
+          <p>The structure of the Student Government is bifurcated into two main branches: the Legislative branch, the "House of Representatives", and the Executive branch, the "Ministries". 
+
+            At the top of the hierarchy, there is a President and a Vice President, overseeing the entire Student Government. Under the Legislative branch, there are four councils representing different student segments: the YIF Council, the UG (Undergraduate) Council, the Masters Council, and the PhD Council. These councils are responsible for legislative functions, which include voicing student concerns, drafting policies, and overseeing the enactment of student welfare initiatives.
+            
+            On the executive side, the ministries are Jazbaa, Technology Ministry, Ministry of Academic Affairs, Sports Ministry, Environment Ministry, Campus Life Ministry, and Ministry of Community and Well Being.
+            
+            The positions of President, Vice President, and members of the UG, YIF, PhD, and Masters Councils are elected.</p>
+            
+          </p> To know more about the Ashoka Univeristy Student Government, please visit https://sg.ashoka.edu.in/</p>
+        </div>
+        <div>
+          <img src="/assets/img/structure.jpeg" class="img-fluid" alt="">
+
+        </div>
+<!-- 
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-up">
+            <h3 class="resume-title">Sumary</h3>
+            <div class="resume-item pb-0">
+              <h4>Alex Smith</h4>
+              <p><em>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</em></p>
+              <ul>
+                <li>Portland par 127,Orlando, FL</li>
+                <li>(123) 456-7891</li>
+                <li>alice.barkley@example.com</li>
+              </ul>
+            </div>
+
+            <h3 class="resume-title">Education</h3>
+            <div class="resume-item">
+              <h4>Master of Fine Arts &amp; Graphic Design</h4>
+              <h5>2015 - 2016</h5>
+              <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
+              <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p>
+            </div>
+            <div class="resume-item">
+              <h4>Bachelor of Fine Arts &amp; Graphic Design</h4>
+              <h5>2010 - 2014</h5>
+              <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
+              <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title">Professional Experience</h3>
+            <div class="resume-item">
+              <h4>Senior graphic design specialist</h4>
+              <h5>2019 - Present</h5>
+              <p><em>Experion, New York, NY </em></p>
+              <ul>
+                <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
+                <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
+                <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
+                <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
+              </ul>
+            </div>
+            <div class="resume-item">
+              <h4>Graphic design specialist</h4>
+              <h5>2017 - 2018</h5>
+              <p><em>Stepping Stone Advertising, New York, NY</em></p>
+              <ul>
+                <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
+                <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
+                <li>Recommended and consulted with clients on the most appropriate graphic design</li>
+                <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
+              </ul>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+    </section><!-- End Resume Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Candidates for 2024 SG Elections</h2>
+        <div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-prez">President/Vice President</li>
+              <li data-filter=".filter-ug">UG Council</li>
+              <li data-filter=".filter-masters">Masters Council</li>
+              <li data-filter=".filter-phd">PhD Council</li>
+              <li data-filter=".filter-leher">Party: Leher</li>
+              <li data-filter=".filter-toofaan">Party: Toofan</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-prez filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/President_Prachet_Sinha.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/President_Prachet_Sinha.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Prachet Sinha</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-prez filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/President_Domil_Antony_Johnson.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/President_Domil_Antony_Johnson.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Domil Antony Johnson</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-prez">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/VicePresident_Insha_Husain.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/VicePresident_Insha_Husain.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Insha Husain</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-prez">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/VicePresident_Quanisha_Saboo.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/VicePresident_Quanisha_Saboo.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Quanisha Saboo</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Aan_Rajyavardhan_Singh.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Aan_Rajyavardhan_Singh.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Aan Rajyavardhan Rakshit</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Aekam_Mohan_Singh_Gulati.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Aekam_Mohan_Singh_Gulati.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Aekam Mohan Singh Gulati</h3>
+
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Ahan_Uke.png" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Ahan_Uke.png" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Ahan Uke</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Ahana_Walanju.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Ahana_Walanju.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Ahana Walanju</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Ajitesh_Vishwanath.jpg" class="img-fluid" alt="">
+              <h3 class="candidate-name">Ajitesh Vishwanath</h3>
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Ajitesh_Vishwanath.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Ananya_Makker.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Ananya_Makker.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Ananya Makker</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Anika_Rajvanshi.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Anika_Rajvanshi.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Anika Rajvanshi</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Arv_Srivastava.jpeg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Arv_Srivastava.jpeg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Arv Srivastava</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Ayush_Solapurkar.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Ayush_Solapurkar.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Ayush Solapurkar</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Charvi_Khullar.png" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Charvi_Khullar.png" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Charvi Khullar</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Dheer_Achyut_Kulkarni.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Dheer_Achyut_Kulkarni.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Dheer Achyut Kulkarni</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Elbin_Eldho.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Elbin_Eldho.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Elbin Eldho</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Insha_Husain.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Insha_Husain.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Insha Husain</h3>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Yash_Srivastava.jpeg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Yash_Srivastava.jpeg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Yash Srivastava</h3>
+          </div>
+
+          
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Nameer_Raza_Syed.jpeg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Nameer_Raza_Syed.jpeg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Nameer Raza Syed </h3>
+          </div>
+
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Namrita_A.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Namrita_A.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Namrita A</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Sharmistha_Shivhare.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Sharmistha_Shivhare.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Sharmistha Shivhare</h3>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Paavni_Kanth.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Paavni_Kanth.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Paavni Kanth</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Parin_Arora.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Parin_Arora.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Parin Arora</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Parvathy_Pradeep.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Parvathy_Pradeep.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Parvathy Pradeep</h3>
+          </div>
+
+          
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Raunak_Kumar.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Raunak_Kumar.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Raunak Kumar</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Razeen_Ayesh.png" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Razeen_Ayesh.png" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Razeen Ayesh</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Rithul_Anand.jpeg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Rithul_Anand.jpeg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Rithul Anand</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Saairah_Mehta.jpeg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Saairah_Mehta.jpeg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Saairah Mehta</h3>
+          </div>
+
+         
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Sneha_Menon.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Sneha_Menon.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Sneha Menon</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-leher">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Utsav_Kumar_Mathur.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Utsav_Kumar_Mathur.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Utsav Kumar Mathur </h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug filter-toofaan">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Mohin_Viraj_Gandhi.jpeg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Mohin_Viraj_Gandhi.jpeg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Mohin Viraj Gandhi</h3>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-ug">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/UG_Yashaswi_Hegde.png" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/UG_Yashaswi_Hegde.png" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Yashaswi Hegde</h3>
+          </div>
+
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-masters">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/Masters_Anulya_P.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/Masters_Anulya_P.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Anulya P</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-masters">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/Masters_Gayathri_Nair.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/Masters_Gayathri_Nair.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Gayathri Nair</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-phd">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/PhD_Meenakshi_Rana.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/portfolio/portfolio-9.jpg" data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Meenakshi Rana</h3>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-phd">
+            <div class="portfolio-wrap">
+              <img src="/assets/img/PhD_Rahul_Kumar.jpeg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="/assets/img/PhD_Rahul_Kumar.jpeg" data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+            <h3 class="candidate-name">Rahul Kumar</h3>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+    <!-- ======= Services Section ======= -->
+    <!-- <section id="services" class="services">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Services</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+            <div class="icon"><i class="icofont-computer"></i></div>
+            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon"><i class="icofont-chart-bar-graph"></i></div>
+            <h4 class="title"><a href="">Dolor Sitema</a></h4>
+            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon"><i class="icofont-earth"></i></div>
+            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon"><i class="icofont-image"></i></div>
+            <h4 class="title"><a href="">Magni Dolores</a></h4>
+            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
+            <div class="icon"><i class="icofont-settings"></i></div>
+            <h4 class="title"><a href="">Nemo Enim</a></h4>
+            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
+            <div class="icon"><i class="icofont-tasks-alt"></i></div>
+            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
+            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+          </div>
+        </div>
+
+      </div>
+    </section> -->
+    <!-- End Services Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Note from the Chief Election Commissioner</h2>
+          <p>On behalf of the Ashoka University Election Commission, I’m thrilled to announce the commencement of the Student Government Elections for the Academic Year 2024-25. Your active participation in this democratic process is crucial in shaping the future of our institution. Candidates have put forth their platforms and visions for our community, and it's now up to you to choose who you believe will best serve the student body. Every vote matters, so we encourage each and every one of you to cast your ballot and make your voice heard.</p>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>
+            Please feel free to reach out to us for any concerns related to student government elections, including questions about procedures, clarifications on rules, or suggestions for improving the electoral process. Your feedback is valuable to us as we strive to ensure a fair and transparent election process for all students.
+          </p>
+          <p>
+            <br />
+            <b>Teshi Sharma</b>, Chief Election Commissioner: teshi.sharma_ug25@ashoka.edu.in
+          </p>
+          <p>
+            <br />
+            <b>Ibrahim Khalil</b>, Chief Technological Officer: ibrahim.khalil_ug25@ashoka.edu.in
+          </p>
+          <p>
+            <br />
+            <b>Aditya Dogra</b>, Chief Technological Officer: aditya.dogra_ug25@ashoka.edu.in
+          </p>
+        </div>
+
+        <div class="row" data-aos="fade-in">
+
+          
+
+          
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>AUEC</span></strong>
+      </div>
+      
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+  <script src="/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="/assets/vendor/counterup/counterup.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="/assets/vendor/typed.js/typed.min.js"></script>
+  <script src="/assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+
+</body>
+
+</html>
