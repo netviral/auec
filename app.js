@@ -331,7 +331,7 @@ app.get("/vote/phd-council", (req, res) => {
                               return;
                             }
                           
-                            const allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
                             allowedAffiliations.push("4fe0588e-9bbf-4128-914b-838439288224"); // NOTA id
                             if(allowedAffiliations.includes(affiliation)){
                                 const newVote = new Vote({
@@ -397,7 +397,7 @@ app.get("/vote/phd-council", (req, res) => {
                               return;
                             }
                           
-                            const allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
                             allowedAffiliations.push("ef0b976e-c1c0-4e4c-a015-0cf81ac47fd3"); // NOTA id
                             if(allowedAffiliations.includes(affiliation)){
                                 const newVote = new Vote({
@@ -463,7 +463,7 @@ app.get("/vote/phd-council", (req, res) => {
                               return;
                             }
                           
-                            const allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
                             allowedAffiliations.push("de83a521-3d47-4671-b49d-2cd4feeb98b4"); // NOTA id
                             if(allowedAffiliations.includes(affiliation)){
                                 const newVote = new Vote({
@@ -528,7 +528,7 @@ app.get("/vote/phd-council", (req, res) => {
                               return;
                             }
                           
-                            const allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
                             allowedAffiliations.push("c1b383d6-0534-4f47-8c18-ec4212fd0e8a"); // NOTA id
                             if(allowedAffiliations.includes(affiliation)){
                                 const newVote = new Vote({
