@@ -155,9 +155,9 @@
           ;"></div>
           <div class="card-body">
             <h5 style="display:inline" class="card-title"> <%=i+1%> <%=council[i].name%></h5><br />            
-            <span style="margin:auto;font-size:14px;display:inline;color:grey;margin:0px;padding:0px;width:auto;height:auto">
+            <!-- <span style="margin:auto;font-size:14px;display:inline;color:grey;margin:0px;padding:0px;width:auto;height:auto">
                 <%=council[i].affiliation%>
-            </span>
+            </span> -->
             <a id="voteButton<%=i%>" onclick="selectCandidate('<%=i%>', '<%=council[i].name%>', '<%=council[i].uuid%>')" style="display:inline;float:right;background-color: #040b14;" href="javascript:void" class="btn btn-primary">Select</a>
           </div>
         </div>
@@ -198,11 +198,37 @@
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
   <script>
-    // Redirect to / page if suspicious activity is detected
+    let inactivityTimer;
     const redirectToHome = () => {
       alert("Suspicious activity detected, redirecting to home.");
+      // Perform logout logic here
       window.location.href = "/";
     };
+  
+    const resetTimer = () => {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        redirectToHome();
+      }, 60000); // 1 minute
+    };
+  
+    resetTimer(); // Start the inactivity timer
+    document.addEventListener('scroll', resetTimer); // Reset timer on scroll
+    document.addEventListener('mousemove', resetTimer); // Reset timer on mouse move
+  
+    // Detect if user opens a new tab or leaves the current tab
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        redirectToHome();
+      }
+    });
+  
+    // Warn user before leaving the page
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+      redirectToHome();
+    });
   
     // Disable right-click
     document.addEventListener('contextmenu', event => event.preventDefault());
@@ -214,6 +240,7 @@
         (event.ctrlKey && event.shiftKey && event.keyCode == 73) ||  // Ctrl+Shift+I
         (event.ctrlKey && event.shiftKey && event.keyCode == 67) ||  // Ctrl+Shift+C
         (event.ctrlKey && event.shiftKey && event.keyCode == 74) ||  // Ctrl+Shift+J
+        (event.ctrlKey && event.altKey && event.keyCode == 74) ||  // Ctrl+Alt+J
         (event.metaKey && event.altKey && event.keyCode == 74) ||  // Command+Option+J
         (event.ctrlKey && event.keyCode == 85) ||  // Ctrl+U
         (event.ctrlKey && event.keyCode == 83) ||  // Ctrl+S
@@ -235,20 +262,8 @@
         redirectToHome();
       }
     };
-  
-    // Detect inactivity and redirect after 1 minute
-    let inactivityTimer;
-    const resetTimer = () => {
-      clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(() => {
-        redirectToHome();
-      }, 60000); // 1 minute
-    };
-  
-    resetTimer(); // Start the inactivity timer
-    document.addEventListener('scroll', resetTimer); // Reset timer on scroll
-    document.addEventListener('mousemove', resetTimer); // Reset timer on mouse move
   </script>
+  
   
   <script>
     let seconds = 60; // Initial number of seconds
