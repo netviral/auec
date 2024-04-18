@@ -8,7 +8,7 @@ dotenv.config({ path: "./.env" });
 // create a custom timestamp format for log statements
 const SimpleNodeLogger = require('simple-node-logger'),
 	opts = {
-		logFilePath:'votes.log',
+		logFilePath:'backup-votes.log',
 		timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 	},
 log = SimpleNodeLogger.createSimpleLogger( opts );
