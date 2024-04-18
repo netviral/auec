@@ -210,7 +210,7 @@ app.get("/vote/president", (req, res) => {
 app.get("/vote/ug-council", (req, res) => {
     if (req.isAuthenticated()) {
       // If user is authenticated, show "logged in" message
-      if(req.user._json.email.includes("_ug")){
+      if(req.user._json.email.includes("_ug") || req.user._json.email.includes("_asp")){
         var ugCouncil=JSON.parse(fs.readFileSync("ug-council.json"));
         User.findOne({ email: req.user._json.email})
         .then(user => {
@@ -333,7 +333,7 @@ app.get("/vote/phd-council", (req, res) => {
   app.post("/submit-votes/ug", (req, res) => {
     var message="";
     if (req.isAuthenticated()) {
-        if(req.user._json.email.includes("_ug")){
+        if(req.user._json.email.includes("_ug") || req.user._json.email.includes("_asp")){
             User.findOne({ email: req.user._json.email})
             .then(user => {
                 if (!user.voted2) {
