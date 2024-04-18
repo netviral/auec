@@ -180,6 +180,11 @@
       <div style="text-align: center;">
           <button id="submit-votes" onclick="submitVotes()" style="background-color: red; color: white; padding: 10px 15px; border: none; border-radius: 8px; cursor: pointer;font-size:18px;margin:auto">Submit Selected Votes</button>
       </div>
+      <div style="text-align: center;">
+      <div id="spinner" style="display:none;margin:auto" class="spinner-grow text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
     </section>
 
   </main><!-- End #main -->
@@ -208,7 +213,7 @@
              if (seconds <= 0) {
                  clearInterval(intervalId); // Stop the timer
                  document.getElementById('timer').innerText = 'Time\'s up!';
-                 window.location.href = "/logout"; // Redirect to "/logout"
+                 window.location.href = "/vote"; // Redirect to "/logout"
              } else if (seconds < 10) {
                  document.getElementById('timer').style.color = 'red'; // Change color to red when less than 10 seconds
              }
@@ -273,27 +278,57 @@
       console.log(selectedCandidates); // Output selected candidates (for testing)
     }
   
-    // Function to submit selected candidates to the backend
-    function submitVotes() {
-      // Example of how to send selectedCandidates object to the backend using fetch
-      document.getElementById("submit-votes").disabled=true;
-      fetch('/submit-votes/ug', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(selectedCandidates)
-      })
-      .then(data => {
+ // Function to submit selected candidates to the backend
+ function submitVotes() {
+  // Example of how to send selectedCandidates object to the backend using fetch
+  document.getElementById("submit-votes").style.display = "none";
+  document.getElementById("spinner").style.display = "block";
 
-        alert(data);
-        // Optionally, you can perform some action after votes are submitted
-        window.location.href = "/logout";
-      })
-      .catch(error => {
-        console.error('Error submitting votes:', error);
-      });
-    }
+
+  // Create an AbortController instance
+  const controller = new AbortController();
+  const signal = controller.signal;
+
+  // Set a timeout of 10 seconds
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+    console.error('Request timed out');
+  }, 10000);
+
+  fetch('/submit-votes/ug', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(selectedCandidates),
+    signal: signal // Pass the signal to the fetch request
+  })
+    .then(response => {
+      clearTimeout(timeoutId); // Clear the timeout if a response is received
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      document.getElementById("spinner").style.display = "none";
+
+      return response.text(); // Return response text as the next promise value
+    })
+    .then(data => {
+      console.log('Response:', data);
+      // Optionally, you can perform some action after votes are submitted
+      document.getElementById("spinner").style.display = "none";
+      alert(data);
+      window.location.href = "/vote";
+    })
+    .catch(error => {
+      document.getElementById("spinner").style.display = "none";
+      clearTimeout(timeoutId); // Clear the timeout if an error occurs
+      console.error('Error submitting votes:', error);
+      alert('Error submitting votes:', error);
+    });
+}
+
+
+
   </script>
   <!-- Vendor JS Files -->
   <script>

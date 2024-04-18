@@ -5,7 +5,13 @@ const port = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
-
+// create a custom timestamp format for log statements
+const SimpleNodeLogger = require('simple-node-logger'),
+	opts = {
+		logFilePath:'votes.log',
+		timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
+	},
+log = SimpleNodeLogger.createSimpleLogger( opts );
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const cors = require("cors");
@@ -52,6 +58,13 @@ const userSchema = new Schema({
 const voteSchema = new Schema({
   identifier: String,
   type: String,
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+});
+// Update the updatedAt field whenever a document is updated
+voteSchema.pre('save', function(next) {
+  this.updatedAt = new Date();
+  next();
 });
 
 // Create models for the schemas
@@ -145,6 +158,7 @@ app.get("/vote", (req, res) => {
             })
             .catch(err => {
                 console.error("Error finding user:", err);
+                res.redirect("/");
         });
     } else {
       // If user is not authenticated, redirect to Google OAuth authentication
@@ -317,6 +331,7 @@ app.get("/vote/phd-council", (req, res) => {
   });
 
   app.post("/submit-votes/ug", (req, res) => {
+    var message="";
     if (req.isAuthenticated()) {
         if(req.user._json.email.includes("_ug")){
             User.findOne({ email: req.user._json.email})
@@ -338,48 +353,48 @@ app.get("/vote/phd-council", (req, res) => {
                                 const newVote = new Vote({
                                     identifier: affiliation,
                                     type: "UG",
-                                    count: 1 // Initial count set to 1
                                 });
-        
                                 // Save the newVote to the database
                                 newVote.save().then(() => {
                                     console.log(`New vote created for affiliation: ${affiliation}`);
+                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
+                                    .then(updatedUser => {
+                                        if (updatedUser) {
+                                          console.log("User updated successfully:", updatedUser);
+                                          res.send("Your vote was registered. Thank you for your time.");
+                                        } else {
+                                          console.log("User not found.");
+                                          message+="User not found.";
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error("Error updating user:", err);
+                                        message+="An error occurred.";
+                                    });
                                 }).catch(err => {
                                     console.error('Error creating new vote:', err);
+                                    message+="An error occurred.";
                                 });
+                                log.info('vote ', affiliation, ' type ', "UG ", new Date().toJSON());
                             }else{
                                 console.log("No such affiliation for: "+ affiliation);
-                            }
-                          
+                                message+="An error occurred.";
+                            }  
                           });
                     });
-                    
-                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
-                        .then(updatedUser => {
-                            if (updatedUser) {
-                            console.log("User updated successfully:", updatedUser);
-                            } else {
-                            console.log("User not found.");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Error updating user:", err);
-                        });
-                    res.send("Your vote was registered. Thank you for your time.")
                 } else {
-                    res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
+                    message=+"Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.";
                 }
             })
             .catch(err => {
                 console.error("Error finding user:", err);
+                message+="Error finding user";
             });
         }else{
-            res.send("Not an eligible student.");
+          res.send("Not an eligible student.");
         }
-      console.log(req.body);
     } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
+      res.redirect("/");
     }
   });
   
@@ -405,34 +420,33 @@ app.get("/vote/phd-council", (req, res) => {
                                 const newVote = new Vote({
                                     identifier: affiliation,
                                     type: "MASTERS",
-                                    count: 1 // Initial count set to 1
                                 });
         
                                 // Save the newVote to the database
                                 newVote.save().then(() => {
                                     console.log(`New vote created for affiliation: ${affiliation}`);
+                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
+                                    .then(updatedUser => {
+                                        if (updatedUser) {
+                                        console.log("User updated successfully:", updatedUser);
+                                        res.send("Your vote was registered. Thank you for your time.")
+                                        } else {
+                                        console.log("User not found.");
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error("Error updating user:", err);
+                                    });
                                 }).catch(err => {
                                     console.error('Error creating new vote:', err);
                                 });
+                                log.info('vote ', affiliation, ' type ', "MASTERS ", new Date().toJSON());
                             }else{
                                 console.log("No such affiliation for: "+ affiliation);
                             }
                           
                           });
                     });
-                    
-                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
-                        .then(updatedUser => {
-                            if (updatedUser) {
-                            console.log("User updated successfully:", updatedUser);
-                            } else {
-                            console.log("User not found.");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Error updating user:", err);
-                        });
-                    res.send("Your vote was registered. Thank you for your time.")
                 } else {
                     res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
                 }
@@ -472,34 +486,33 @@ app.get("/vote/phd-council", (req, res) => {
                                 const newVote = new Vote({
                                     identifier: affiliation,
                                     type: "PHD",
-                                    count: 1 // Initial count set to 1
                                 });
         
                                 // Save the newVote to the database
                                 newVote.save().then(() => {
                                     console.log(`New vote created for affiliation: ${affiliation}`);
+                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
+                                    .then(updatedUser => {
+                                        if (updatedUser) {
+                                        console.log("User updated successfully:", updatedUser);
+                                        res.send("Your vote was registered. Thank you for your time.")
+                                        } else {
+                                        console.log("User not found.");
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error("Error updating user:", err);
+                                    });
                                 }).catch(err => {
                                     console.error('Error creating new vote:', err);
                                 });
+                                log.info('vote ', affiliation, ' type ', "PHD ", new Date().toJSON());
                             }else{
                                 console.log("No such affiliation for: "+ affiliation);
                             }
                           
                           });
                     });
-                    
-                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
-                        .then(updatedUser => {
-                            if (updatedUser) {
-                            console.log("User updated successfully:", updatedUser);
-                            } else {
-                            console.log("User not found.");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Error updating user:", err);
-                        });
-                    res.send("Your vote was registered. Thank you for your time.")
                 } else {
                     res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
                 }
@@ -538,34 +551,32 @@ app.get("/vote/phd-council", (req, res) => {
                                 const newVote = new Vote({
                                     identifier: affiliation,
                                     type: "PRESIDENT",
-                                    count: 1 // Initial count set to 1
                                 });
         
                                 // Save the newVote to the database
                                 newVote.save().then(() => {
                                     console.log(`New vote created for affiliation: ${affiliation}`);
+                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted1:true })
+                                    .then(updatedUser => {
+                                        if (updatedUser) {
+                                        console.log("User updated successfully:", updatedUser);
+                                        res.send("Your vote was registered. Thank you for your time.")
+                                        } else {
+                                        console.log("User not found.");
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error("Error updating user:", err);
+                                    });
                                 }).catch(err => {
                                     console.error('Error creating new vote:', err);
                                 });
+                                log.info('vote ', affiliation, ' type ', "PRESIDENT ", new Date().toJSON());
                             }else{
                                 console.log("No such affiliation for: "+ affiliation);
                             }
-                          
                           });
                     });
-                    
-                    User.findOneAndUpdate({ email: req.user._json.email }, { voted1:true })
-                        .then(updatedUser => {
-                            if (updatedUser) {
-                            console.log("User updated successfully:", updatedUser);
-                            } else {
-                            console.log("User not found.");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Error updating user:", err);
-                        });
-                    res.send("Your vote was registered. Thank you for your time.")
                 } else {
                     res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
                 }
