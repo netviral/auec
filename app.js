@@ -321,7 +321,7 @@ app.get("/vote/phd-council", (req, res) => {
             User.findOne({ email: req.user._json.email})
             .then(user => {
                 if (!user.voted2) {
-                    const uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
                     uniqueAffiliations=uniqueAffiliations.slice(0,15); // maximum of 15 allowed
                     uniqueAffiliations.forEach(affiliation => {
                         // Create a newVote for each unique affiliation
@@ -388,7 +388,7 @@ app.get("/vote/phd-council", (req, res) => {
             User.findOne({ email: req.user._json.email})
             .then(user => {
                 if (!user.voted2) {
-                    const uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
                     uniqueAffiliations=uniqueAffiliations.slice(0,2); // maximum of 2 allowed
                     uniqueAffiliations.forEach(affiliation => {
                         fs.readFile('masters-council.json', 'utf8', (err, data) => {
@@ -454,7 +454,7 @@ app.get("/vote/phd-council", (req, res) => {
             User.findOne({ email: req.user._json.email})
             .then(user => {
                 if (!user.voted2) {
-                    const uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
                     uniqueAffiliations=uniqueAffiliations.slice(0,2); // maximum of 2 allowed
                     uniqueAffiliations.forEach(affiliation => {
                         fs.readFile('phd-council.json', 'utf8', (err, data) => {
@@ -519,7 +519,7 @@ app.get("/vote/phd-council", (req, res) => {
             User.findOne({ email: req.user._json.email})
             .then(user => {
                 if (!user.voted1) {
-                    const uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
                     uniqueAffiliations=uniqueAffiliations.slice(0,1); // maximum of 1 allowed
                     uniqueAffiliations.forEach(affiliation => {
                         fs.readFile('president.json', 'utf8', (err, data) => {
