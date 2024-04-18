@@ -603,10 +603,10 @@ app.get("/results", function(req,res){
             return Vote.countDocuments({ type: "MASTERS" });
           }).then(count => {
             counts.MASTERS = count;
-            return Vote.countDocuments({ type: "PRESIDENT" });
+            return Vote.countDocuments({ type: "PHD" });
           }).then(count => {
             counts.PHD = count;
-            return Vote.countDocuments({ type: "PHD" });
+            return Vote.countDocuments({ type: "PRESIDENT" });
           }).then(count => {
             counts.PRESIDENT = count;
             return counts;
