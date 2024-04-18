@@ -2,34 +2,78 @@
 <html>
 <head>
   <title>Vote Data</title>
+  <style>
+    table {
+      width: 50%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 <body>
   <h1>Vote Data</h1>
   <div style="margin:40px">
-  
-  <h3>1. How many votes for each of UG, Masters and Presidential:</h3>
-  <p>UG Votes: <%= voteCounts.UG %></p>
-  <p>Masters Votes: <%= voteCounts.MASTERS %></p>
-  <p>PHD Votes: <%= voteCounts.PHD %></p>
-  <p>Presidential Votes: <%= voteCounts.PRESIDENT %></p>
-  
-  <h3>2. Total users on the site:</h3>
-  <p>Total Users: <%= totalUserCount %></p>
-  
-  <h3>3. How many users have voted for presidential elections:</h3>
-  <p>Voted for Presidential Elections: <%= voted1UserCount %></p>
-  
-  <h3>4. How many users have voted for UG/Masters/PhD in total:</h3>
-  <p>Voted for UG/Masters/PhD: <%= voted2UserCount %></p>
-  
-  <h3>5. How many users have voted for UG Council:</h3>
-  <p>Voted for UG Council: <%= ugOrASPUsersVoted2Count %></p>
-  
-  <h3>6. How many users have voted for Masters Council:</h3>
-  <p>Voted for Masters Council: <%= MSCorMAUsersVoted2Count %></p>
-  
-  <h3>7. How many users have voted for PhD Council:</h3>
-  <p>Voted for PhD Council: <%= PhDUsersVoted2Count %></p>
-</div>
+    <h2>Summary:</h2>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Count</th>
+      </tr>
+      <tr>
+        <td>Total Users</td>
+        <td><%= totalUserCount %></td>
+      </tr>
+      <tr>
+        <td>Total Votes</td>
+        <td><%= voted2UserCount %></td>
+      </tr>
+      <tr>
+        <td>Total Presidential Votes</td>
+        <td><%= voted1UserCount %></td>
+      </tr>
+      <tr>
+        <td>Total UG Council Votes</td>
+        <td><%= ugOrASPUsersVoted2Count %></td>
+      </tr>
+      <tr>
+        <td>Total Masters Council Votes</td>
+        <td><%= MSCorMAUsersVoted2Count %></td>
+      </tr>
+      <tr>
+        <td>Total PhD Council Votes</td>
+        <td><%= PhDUsersVoted2Count %></td>
+      </tr>
+    </table>
+    <h2>Detailed Breakdown:</h2>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Count</th>
+      </tr>
+      <tr>
+        <td>UG Votes</td>
+        <td><%= voteCounts.UG %></td>
+      </tr>
+      <tr>
+        <td>Masters Votes</td>
+        <td><%= voteCounts.MASTERS %></td>
+      </tr>
+      <tr>
+        <td>PHD Votes</td>
+        <td><%= voteCounts.PHD %></td>
+      </tr>
+      <tr>
+        <td>Presidential Votes</td>
+        <td><%= voteCounts.PRESIDENT %></td>
+      </tr>
+    </table>
+  </div>
 </body>
 </html>
