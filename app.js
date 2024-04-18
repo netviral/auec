@@ -152,8 +152,8 @@ app.get("/vote", (req, res) => {
             .then(user => {
                 var voted1=user.voted1;
                 var voted2=user.voted2;
-                var opened1Twice=user.opened1<2?false:true;
-                var opened2Twice=user.opened2<2?false:true;
+                var opened1Twice=user.opened1<5?false:true;
+                var opened2Twice=user.opened2<5?false:true;
                 res.render("voting",{user:req.user._json,voted1:voted1,voted2:voted2,opened1Twice:opened1Twice,opened2Twice:opened2Twice});
             })
             .catch(err => {
@@ -176,7 +176,7 @@ app.get("/vote/president", (req, res) => {
                 if(user.voted1){
                     res.send("You have already voted.");
                 }else{
-                    if (user.opened1<2) {
+                    if (user.opened1<5) {
                         res.render("president",{user:req.user._json,council:pairs,allowed:1});
                     } else {
                         res.send("You've opened this page " +user.opened1+" times, hence quarantined. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
@@ -217,7 +217,7 @@ app.get("/vote/ug-council", (req, res) => {
             if(user.voted2){
                 res.send("You have already voted.");
             }else{
-                if (user.opened2<2) {
+                if (user.opened2<5) {
                     res.render("ug",{user:req.user._json,council:ugCouncil,allowed:15});
                 } else {
                     res.send("You've opened this page " +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
@@ -258,7 +258,7 @@ app.get("/vote/masters-council", (req, res) => {
             if(user.voted2){
                 res.send("You have already voted.");
             }else{
-                if (user.opened2<2) {
+                if (user.opened2<5) {
                     res.render("masters",{user:req.user._json,council:mastersCouncil,allowed:2});
                 } else {
                     res.send("You've opened this page" +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
@@ -299,7 +299,7 @@ app.get("/vote/phd-council", (req, res) => {
             if(user.voted2){
                 res.send("You have already voted.");
             }else{
-                if (user.opened2<2) {
+                if (user.opened2<5) {
                     res.render("phd",{user:req.user._json,council:phdCouncil,allowed:2});
                 } else {
                     res.send("You've opened this page" +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
