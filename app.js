@@ -50,7 +50,8 @@ const userSchema = new Schema({
 
 // Define the schema for the votes collection
 const voteSchema = new Schema({
-  identifier: String
+  identifier: String,
+  type: String,
 });
 
 // Create models for the schemas
@@ -336,6 +337,7 @@ app.get("/vote/phd-council", (req, res) => {
                             if(allowedAffiliations.includes(affiliation)){
                                 const newVote = new Vote({
                                     identifier: affiliation,
+                                    type: "UG",
                                     count: 1 // Initial count set to 1
                                 });
         
@@ -402,6 +404,7 @@ app.get("/vote/phd-council", (req, res) => {
                             if(allowedAffiliations.includes(affiliation)){
                                 const newVote = new Vote({
                                     identifier: affiliation,
+                                    type: "MASTERS",
                                     count: 1 // Initial count set to 1
                                 });
         
@@ -468,6 +471,7 @@ app.get("/vote/phd-council", (req, res) => {
                             if(allowedAffiliations.includes(affiliation)){
                                 const newVote = new Vote({
                                     identifier: affiliation,
+                                    type: "PHD",
                                     count: 1 // Initial count set to 1
                                 });
         
@@ -533,6 +537,7 @@ app.get("/vote/phd-council", (req, res) => {
                             if(allowedAffiliations.includes(affiliation)){
                                 const newVote = new Vote({
                                     identifier: affiliation,
+                                    type: "PRESIDENT",
                                     count: 1 // Initial count set to 1
                                 });
         
