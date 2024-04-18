@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vote Data</title>
+</head>
+<body>
+  <h1>Vote Data</h1>
+  <div style="margin:40px">
+  
+  <h3>1. How many votes for each of UG, Masters and Presidential:</h3>
+  <p>UG Votes: <%= voteCounts.UG %></p>
+  <p>Masters Votes: <%= voteCounts.MASTERS %></p>
+  <p>PHD Votes: <%= voteCounts.PHD %></p>
+  <p>Presidential Votes: <%= voteCounts.PRESIDENT %></p>
+  
+  <h3>2. Total users on the site:</h3>
+  <p>Total Users: <%= totalUserCount %></p>
+  
+  <h3>3. How many users have voted for presidential elections:</h3>
+  <p>Voted for Presidential Elections: <%= voted1UserCount %></p>
+  
+  <h3>4. How many users have voted for UG/Masters/PhD in total:</h3>
+  <p>Voted for UG/Masters/PhD: <%= voted2UserCount %></p>
+  
+  <h3>5. How many users have voted for UG Council:</h3>
+  <p>Voted for UG Council: <%= ugOrASPUsersVoted2Count %></p>
+  
+  <h3>6. How many users have voted for Masters Council:</h3>
+  <p>Voted for Masters Council: <%= MSCorMAUsersVoted2Count %></p>
+  
+  <h3>7. How many users have voted for PhD Council:</h3>
+  <p>Voted for PhD Council: <%= PhDUsersVoted2Count %></p>
+</div>
+</body>
+</html>

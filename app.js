@@ -594,6 +594,109 @@ app.get("/vote/phd-council", (req, res) => {
     }
   });
 
+app.get("/results", function(req,res){
+    if(req.query.key==111222333 && req.query.toy==333222111){
+      const getVoteCountsByType = () => {
+            const counts = {};
+            return Vote.countDocuments({ type: "UG" }).then(count => {
+            counts.UG = count;
+            return Vote.countDocuments({ type: "MASTERS" });
+          }).then(count => {
+            counts.MASTERS = count;
+            return Vote.countDocuments({ type: "PRESIDENT" });
+          }).then(count => {
+            counts.PHD = count;
+            return Vote.countDocuments({ type: "PHD" });
+          }).then(count => {
+            counts.PRESIDENT = count;
+            return counts;
+          }).catch(err => {
+            console.error('Error counting votes by type:', err);
+            throw err;
+          });
+      };
+
+      const getTotalUserCount = () => {
+        return User.countDocuments().then(count => {
+          return count;
+        }).catch(err => {
+          console.error('Error counting total users:', err);
+          throw err;
+        });
+      };
+
+      const getVoted1UserCount = () => {
+        return User.countDocuments({ voted1: true }).then(count => {
+          return count;
+        }).catch(err => {
+          console.error('Error counting users who voted in presidential election:', err);
+          throw err;
+        });
+      };
+
+      const getVoted2UserCount = () => {
+        return User.countDocuments({ voted2: true }).then(count => {
+          return count;
+        }).catch(err => {
+          console.error('Error counting users who voted in another election:', err);
+          throw err;
+        });
+      };
+
+      const getUGorASPUsersVoted2Count = () => {
+        return User.countDocuments({ $and: [{ $or: [{ email: /_ug/ }, { email: /_asp/ }] }, { voted2: true }] }).then(count => {
+          return count;
+        }).catch(err => {
+          console.error('Error counting users with _ug or _asp in email who voted in another election:', err);
+          throw err;
+        });
+      };
+
+      const getMSCorMAUsersVoted2Count = () => {
+        return User.countDocuments({ $and: [{ $or: [{ email: /_msc/ }, { email: /_ma/ }] }, { voted2: true }] }).then(count => {
+          return count;
+        }).catch(err => {
+          console.error('Error counting users with _msc or _ma in email who voted in another election:', err);
+          throw err;
+        });
+      };
+
+      const getPhDUsersVoted2Count = () => {
+        return User.countDocuments({ $and: [{ email: /_phd/ }, { voted2: true }] }).then(count => {
+          return count;
+        }).catch(err => {
+          console.error('Error counting users with _phd in email who voted in another election:', err);
+          throw err;
+        });
+      };
+
+      // Driver code
+      Promise.all([
+        getVoteCountsByType(), // How many votes for each of UG, Masters and Presidential
+        getTotalUserCount(), // Total users on the site
+        getVoted1UserCount(), // how many users have voted for presidential elections
+        getVoted2UserCount(), // how many users have voted for UG/Masters/PhD in total
+        getUGorASPUsersVoted2Count(), // How many users have voted for UG Council
+        getMSCorMAUsersVoted2Count(), // How many users have voted for Masters Council
+        getPhDUsersVoted2Count() // How many users have voted for PhD Council
+      ]).then(([voteCounts, totalUserCount, voted1UserCount, voted2UserCount, ugOrASPUsersVoted2Count,MSCorMAUsersVoted2Count,PhDUsersVoted2Count]) => {
+        res.render('res', {
+          voteCounts: voteCounts,
+          totalUserCount: totalUserCount,
+          voted1UserCount: voted1UserCount,
+          voted2UserCount: voted2UserCount,
+          ugOrASPUsersVoted2Count: ugOrASPUsersVoted2Count,
+          MSCorMAUsersVoted2Count:MSCorMAUsersVoted2Count,
+          PhDUsersVoted2Count:PhDUsersVoted2Count
+        });
+      }).catch(err => {
+        console.error('Error:', err);
+      });
+      }else{
+        res.sendStatus(404);
+      }
+});
+
 app.get("/auth/google", passport.authenticate("google", { hd: 'ashoka.edu.in', scope: ["profile", "email"] }));
 
 app.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
