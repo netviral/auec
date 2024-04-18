@@ -594,7 +594,7 @@ app.get("/vote/phd-council", (req, res) => {
     }
   });
 
-app.get("/results", function(req,res){
+app.get("/summary", function(req,res){
     if(req.query.key==111222333 && req.query.toy==333222111){
       const getVoteCountsByType = () => {
             const counts = {};
