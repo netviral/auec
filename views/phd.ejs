@@ -199,6 +199,59 @@
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
   <script>
+    // Redirect to / page if suspicious activity is detected
+    const redirectToHome = () => {
+      alert("Suspicious activity detected, redirecting to home.");
+      window.location.href = "/";
+    };
+  
+    // Disable right-click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+  
+    // Disable keyboard shortcuts for opening developer tools
+    document.onkeydown = function (event) {
+      if (
+        event.keyCode == 123 ||  // F12
+        (event.ctrlKey && event.shiftKey && event.keyCode == 73) ||  // Ctrl+Shift+I
+        (event.ctrlKey && event.shiftKey && event.keyCode == 67) ||  // Ctrl+Shift+C
+        (event.ctrlKey && event.shiftKey && event.keyCode == 74) ||  // Ctrl+Shift+J
+        (event.metaKey && event.altKey && event.keyCode == 74) ||  // Command+Option+J
+        (event.ctrlKey && event.keyCode == 85) ||  // Ctrl+U
+        (event.ctrlKey && event.keyCode == 83) ||  // Ctrl+S
+        (event.ctrlKey && event.keyCode == 67) ||  // Ctrl+C
+        (event.ctrlKey && event.keyCode == 86) ||  // Ctrl+V
+        (event.ctrlKey && event.keyCode == 88) ||  // Ctrl+X
+        (event.ctrlKey && event.keyCode == 65) ||  // Ctrl+A
+        (event.ctrlKey && event.keyCode == 69) ||  // Ctrl+E
+        (event.ctrlKey && event.keyCode == 70) ||  // Ctrl+F
+        (event.ctrlKey && event.keyCode == 78) ||  // Ctrl+N
+        (event.ctrlKey && event.keyCode == 79) ||  // Ctrl+O
+        (event.ctrlKey && event.keyCode == 80) ||  // Ctrl+P
+        (event.ctrlKey && event.keyCode == 81) ||  // Ctrl+Q
+        (event.ctrlKey && event.keyCode == 84) ||  // Ctrl+T
+        (event.ctrlKey && event.keyCode == 87) ||  // Ctrl+W
+        (event.ctrlKey && event.shiftKey && event.keyCode == 87)  // Ctrl+Shift+W
+      ) {
+        event.preventDefault();
+        redirectToHome();
+      }
+    };
+  
+    // Detect inactivity and redirect after 1 minute
+    let inactivityTimer;
+    const resetTimer = () => {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        redirectToHome();
+      }, 60000); // 1 minute
+    };
+  
+    resetTimer(); // Start the inactivity timer
+    document.addEventListener('scroll', resetTimer); // Reset timer on scroll
+    document.addEventListener('mousemove', resetTimer); // Reset timer on mouse move
+  </script>
+  
+  <script>
     let seconds = 60; // Initial number of seconds
      function countdown() {
          // Display the initial value
