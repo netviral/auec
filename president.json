@@ -1,14 +1,14 @@
 [
   {
-    "name": "Prachet Sinha and Insha Hussain",
-    "affiliation": "INDEPENDENT",
-    "year": "UG25",
-    "uuid": "ade0f964-7ddd-4c48-9921-8978cd17a244"
-  },
-  {
     "name": "Domil Antony Johnson and Quanisha Saboo",
     "affiliation": "TOOFAAN",
     "year": "UG25",
     "uuid": "d509a222-6368-4d25-a631-e129964f45e5"
+  },
+  {
+    "name": "Prachet Sinha and Insha Hussain",
+    "affiliation": "INDEPENDENT",
+    "year": "UG25",
+    "uuid": "ade0f964-7ddd-4c48-9921-8978cd17a244"
   }
 ]
