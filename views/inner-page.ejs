@@ -252,19 +252,6 @@
           redirectToHome();
         }
       };
-    
-      // Detect inactivity and redirect after 1 minute
-      let inactivityTimer;
-      const resetTimer = () => {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(() => {
-          redirectToHome();
-        }, 60000); // 1 minute
-      };
-    
-      resetTimer(); // Start the inactivity timer
-      document.addEventListener('scroll', resetTimer); // Reset timer on scroll
-      document.addEventListener('mousemove', resetTimer); // Reset timer on mouse move
     </script>
     
     
