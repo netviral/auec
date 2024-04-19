@@ -21,6 +21,13 @@
         th {
             background-color: #f2f2f2;
         }
+
+        .won {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text color */
+            font-weight: bold; /* Bold text */
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
     </style>
 </head>
 
@@ -39,49 +46,86 @@
                 <td colspan="3"><strong>PRESIDENT</strong></td>
             </tr>
             <!-- PRESIDENT candidates -->
-            <% presidentCandidates.forEach(candidate => { %>
-            <tr>
-                <td></td>
-                <td><%= candidate[1] %></td>
-                <td><%= candidate[2] %></td>
-            </tr>
-            <% }) %>
-
+            <%for(var i=0;i<presidentCandidates.length;i++){%>
+                <%if(i<1){%>
+                <tr class="won">
+                    <td><%=i+1%></td>
+                    <td><%= presidentCandidates[i][1] %></td>
+                    <td><%= presidentCandidates[i][2] %></td>
+                </tr>
+                <%}else{%>
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%= presidentCandidates[i][1] %></td>
+                        <td><%= presidentCandidates[i][2] %></td>
+                    </tr>
+                <%}%>
+            <%}%>
+            
             <tr>
                 <td colspan="3"><strong>UG</strong></td>
             </tr>
             <!-- UG candidates -->
-            <% ugCandidates.forEach(candidate => { %>
-            <tr>
-                <td></td>
-                <td><%= candidate[1] %></td>
-                <td><%= candidate[2] %></td>
-            </tr>
-            <% }) %>
+            <%for(var i=0;i<ugCandidates.length;i++){%>
+                <%if(i<15){%>
+                <tr class="won">
+                    <td><%=i+1%></td>
+                    <td><%= ugCandidates[i][1] %></td>
+                    <td><%= ugCandidates[i][2] %></td>
+                </tr>
+               <% }else{%>
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%= ugCandidates[i][1] %></td>
+                        <td><%= ugCandidates[i][2] %></td>
+                    </tr>
+                <%}%>
+            <%}%>
+            
 
             <tr>
                 <td colspan="3"><strong>MASTERS</strong></td>
             </tr>
             <!-- MASTERS candidates -->
-            <% mastersCandidates.forEach(candidate => { %>
-            <tr>
-                <td></td>
-                <td><%= candidate[1] %></td>
-                <td><%= candidate[2] %></td>
-            </tr>
-            <% }) %>
+
+            <%for(var i=0;i<mastersCandidates.length;i++){%>
+                <%if(i<2){%>
+                <tr class="won">
+                    <td><%=i+1%></td>
+                    <td><%= mastersCandidates[i][1] %></td>
+                    <td><%= mastersCandidates[i][2] %></td>
+                </tr>
+                <%}else{%>
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%= mastersCandidates[i][1] %></td>
+                        <td><%= mastersCandidates[i][2] %></td>
+                    </tr>
+                <%}%>
+            <%}%>
+            
 
             <tr>
                 <td colspan="3"><strong>PHD</strong></td>
             </tr>
             <!-- PHD candidates -->
-            <% phdCandidates.forEach(candidate => { %>
-            <tr>
-                <td></td>
-                <td><%= candidate[1] %></td>
-                <td><%= candidate[2] %></td>
-            </tr>
-            <% }) %>
+
+            <%for(var i=0;i<phdCandidates.length;i++){%>
+                <%if(i<2){%>
+                <tr class="won">
+                    <td><%=i+1%></td>
+                    <td><%= phdCandidates[i][1] %></td>
+                    <td><%= phdCandidates[i][2] %></td>
+                </tr>
+                <%}else{%>
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%= phdCandidates[i][1] %></td>
+                        <td><%= phdCandidates[i][2] %></td>
+                    </tr>
+                <%}%>
+            <%}%>
+            
         </tbody>
     </table>
 </body>

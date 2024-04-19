@@ -697,8 +697,6 @@ app.get("/summary", function(req,res){
       }
 });
 
-
-
 app.get("/auth/google", passport.authenticate("google", { hd: 'ashoka.edu.in', scope: ["profile", "email"] }));
 
 app.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
