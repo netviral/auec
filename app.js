@@ -154,7 +154,7 @@ app.get("/vote", (req, res) => {
                 var voted2=user.voted2;
                 var opened1Twice=user.opened1<5?false:true;
                 var opened2Twice=user.opened2<5?false:true;
-                res.render("voting",{user:req.user._json,voted1:voted1,voted2:voted2,opened1Twice:opened1Twice,opened2Twice:opened2Twice});
+                res.render("voting",{user:user,voted1:voted1,voted2:voted2,opened1Twice:opened1Twice,opened2Twice:opened2Twice});
             })
             .catch(err => {
                 console.error("Error finding user:", err);
