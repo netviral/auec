@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Results</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Voting Results</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Cohort</th>
+                <th>Name</th>
+                <th>Votes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3"><strong>PRESIDENT</strong></td>
+            </tr>
+            <!-- PRESIDENT candidates -->
+            <% presidentCandidates.forEach(candidate => { %>
+            <tr>
+                <td></td>
+                <td><%= candidate[1] %></td>
+                <td><%= candidate[2] %></td>
+            </tr>
+            <% }) %>
+
+            <tr>
+                <td colspan="3"><strong>UG</strong></td>
+            </tr>
+            <!-- UG candidates -->
+            <% ugCandidates.forEach(candidate => { %>
+            <tr>
+                <td></td>
+                <td><%= candidate[1] %></td>
+                <td><%= candidate[2] %></td>
+            </tr>
+            <% }) %>
+
+            <tr>
+                <td colspan="3"><strong>MASTERS</strong></td>
+            </tr>
+            <!-- MASTERS candidates -->
+            <% mastersCandidates.forEach(candidate => { %>
+            <tr>
+                <td></td>
+                <td><%= candidate[1] %></td>
+                <td><%= candidate[2] %></td>
+            </tr>
+            <% }) %>
+
+            <tr>
+                <td colspan="3"><strong>PHD</strong></td>
+            </tr>
+            <!-- PHD candidates -->
+            <% phdCandidates.forEach(candidate => { %>
+            <tr>
+                <td></td>
+                <td><%= candidate[1] %></td>
+                <td><%= candidate[2] %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+
+</html>
