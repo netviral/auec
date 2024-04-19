@@ -135,464 +135,464 @@ app.get("/", (req, res) => {
     }
 });
 
-app.get("/instructions", (req, res) => {
-    if (req.isAuthenticated()) {
-      // If user is authenticated, show "logged in" message
-      res.render("inner-page",{user:req.user._json});
-    } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
-    }
-  });
+// app.get("/instructions", (req, res) => {
+//     if (req.isAuthenticated()) {
+//       // If user is authenticated, show "logged in" message
+//       res.render("inner-page",{user:req.user._json});
+//     } else {
+//       // If user is not authenticated, redirect to Google OAuth authentication
+//       res.redirect("/auth/google");
+//     }
+//   });
 
-app.get("/vote", (req, res) => {
-    if (req.isAuthenticated()) {
-      // If user is authenticated, show "logged in" message
-      User.findOne({ email: req.user._json.email})
-            .then(user => {
-                var voted1=user.voted1;
-                var voted2=user.voted2;
-                var opened1Twice=user.opened1<5?false:true;
-                var opened2Twice=user.opened2<5?false:true;
-                res.render("voting",{user:user,voted1:voted1,voted2:voted2,opened1Twice:opened1Twice,opened2Twice:opened2Twice});
-            })
-            .catch(err => {
-                console.error("Error finding user:", err);
-                res.redirect("/");
-        });
-    } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
-    }
-  });
+// app.get("/vote", (req, res) => {
+//     if (req.isAuthenticated()) {
+//       // If user is authenticated, show "logged in" message
+//       User.findOne({ email: req.user._json.email})
+//             .then(user => {
+//                 var voted1=user.voted1;
+//                 var voted2=user.voted2;
+//                 var opened1Twice=user.opened1<5?false:true;
+//                 var opened2Twice=user.opened2<5?false:true;
+//                 res.render("voting",{user:user,voted1:voted1,voted2:voted2,opened1Twice:opened1Twice,opened2Twice:opened2Twice});
+//             })
+//             .catch(err => {
+//                 console.error("Error finding user:", err);
+//                 res.redirect("/");
+//         });
+//     } else {
+//       // If user is not authenticated, redirect to Google OAuth authentication
+//       res.redirect("/auth/google");
+//     }
+//   });
 
-app.get("/vote/president", (req, res) => {
-    if (req.isAuthenticated()) {
-        if(req.user._json.email.includes("_")){
-            // If user is authenticated, show "logged in" message
-            var pairs=JSON.parse(fs.readFileSync("president.json"));
-            User.findOne({ email: req.user._json.email})
-            .then(user => {
-                if(user.voted1){
-                    res.send("You have already voted.");
-                }else{
-                    if (user.opened1<5) {
-                        res.render("president",{user:req.user._json,council:pairs,allowed:1});
-                    } else {
-                        res.send("You've opened this page " +user.opened1+" times, hence quarantined. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
-                    }
-                }
-            })
-            .catch(err => {
-                console.error("Error finding user:", err);
-            });
+// app.get("/vote/president", (req, res) => {
+//     if (req.isAuthenticated()) {
+//         if(req.user._json.email.includes("_")){
+//             // If user is authenticated, show "logged in" message
+//             var pairs=JSON.parse(fs.readFileSync("president.json"));
+//             User.findOne({ email: req.user._json.email})
+//             .then(user => {
+//                 if(user.voted1){
+//                     res.send("You have already voted.");
+//                 }else{
+//                     if (user.opened1<5) {
+//                         res.render("president",{user:req.user._json,council:pairs,allowed:1});
+//                     } else {
+//                         res.send("You've opened this page " +user.opened1+" times, hence quarantined. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
+//                     }
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error finding user:", err);
+//             });
 
-            User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened1: 1 } }, { new: true })
-            .then(updatedUser => {
-                if (updatedUser) {
-                console.log("User updated successfully:", updatedUser);
-                } else {
-                console.log("User not found.");
-                }
-            })
-            .catch(err => {
-                console.error("Error updating user:", err);
-            });
-        }else{
-            res.send("Only students allowed to vote!")
-        }
-      } else {
-        // If user is not authenticated, redirect to Google OAuth authentication
-        res.redirect("/auth/google");
-      }
-});
+//             User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened1: 1 } }, { new: true })
+//             .then(updatedUser => {
+//                 if (updatedUser) {
+//                 console.log("User updated successfully:", updatedUser);
+//                 } else {
+//                 console.log("User not found.");
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error updating user:", err);
+//             });
+//         }else{
+//             res.send("Only students allowed to vote!")
+//         }
+//       } else {
+//         // If user is not authenticated, redirect to Google OAuth authentication
+//         res.redirect("/auth/google");
+//       }
+// });
 
-app.get("/vote/ug-council", (req, res) => {
-    if (req.isAuthenticated()) {
-      // If user is authenticated, show "logged in" message
-      if(req.user._json.email.includes("_ug") || req.user._json.email.includes("_asp")){
-        var ugCouncil=JSON.parse(fs.readFileSync("ug-council.json"));
-        User.findOne({ email: req.user._json.email})
-        .then(user => {
-            if(user.voted2){
-                res.send("You have already voted.");
-            }else{
-                if (user.opened2<5) {
-                    res.render("ug",{user:req.user._json,council:ugCouncil,allowed:15});
-                } else {
-                    res.send("You've opened this page " +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
-                }
-            }
-        })
-        .catch(err => {
-            console.error("Error finding user:", err);
-        });
+// app.get("/vote/ug-council", (req, res) => {
+//     if (req.isAuthenticated()) {
+//       // If user is authenticated, show "logged in" message
+//       if(req.user._json.email.includes("_ug") || req.user._json.email.includes("_asp")){
+//         var ugCouncil=JSON.parse(fs.readFileSync("ug-council.json"));
+//         User.findOne({ email: req.user._json.email})
+//         .then(user => {
+//             if(user.voted2){
+//                 res.send("You have already voted.");
+//             }else{
+//                 if (user.opened2<5) {
+//                     res.render("ug",{user:req.user._json,council:ugCouncil,allowed:15});
+//                 } else {
+//                     res.send("You've opened this page " +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
+//                 }
+//             }
+//         })
+//         .catch(err => {
+//             console.error("Error finding user:", err);
+//         });
 
-        User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened2: 1 } }, { new: true })
-            .then(updatedUser => {
-                if (updatedUser) {
-                console.log("User updated successfully:", updatedUser);
-                } else {
-                console.log("User not found.");
-                }
-            })
-            .catch(err => {
-                console.error("Error updating user:", err);
-            });
-      }else{
-        res.sendStatus(404);
-      }
-    } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
-    }
-  });
+//         User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened2: 1 } }, { new: true })
+//             .then(updatedUser => {
+//                 if (updatedUser) {
+//                 console.log("User updated successfully:", updatedUser);
+//                 } else {
+//                 console.log("User not found.");
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error updating user:", err);
+//             });
+//       }else{
+//         res.sendStatus(404);
+//       }
+//     } else {
+//       // If user is not authenticated, redirect to Google OAuth authentication
+//       res.redirect("/auth/google");
+//     }
+//   });
 
-app.get("/vote/masters-council", (req, res) => {
-    if (req.isAuthenticated()) {
-      // If user is authenticated, show "logged in" message
-      if(req.user._json.email.includes("_ma") || req.user._json.email.includes("_msc")){
-        var mastersCouncil=JSON.parse(fs.readFileSync("masters-council.json"));
-        User.findOne({ email: req.user._json.email})
-        .then(user => {
-            if(user.voted2){
-                res.send("You have already voted.");
-            }else{
-                if (user.opened2<5) {
-                    res.render("masters",{user:req.user._json,council:mastersCouncil,allowed:2});
-                } else {
-                    res.send("You've opened this page" +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
-                }
-            }
-        })
-        .catch(err => {
-            console.error("Error finding user:", err);
-        });
+// app.get("/vote/masters-council", (req, res) => {
+//     if (req.isAuthenticated()) {
+//       // If user is authenticated, show "logged in" message
+//       if(req.user._json.email.includes("_ma") || req.user._json.email.includes("_msc")){
+//         var mastersCouncil=JSON.parse(fs.readFileSync("masters-council.json"));
+//         User.findOne({ email: req.user._json.email})
+//         .then(user => {
+//             if(user.voted2){
+//                 res.send("You have already voted.");
+//             }else{
+//                 if (user.opened2<5) {
+//                     res.render("masters",{user:req.user._json,council:mastersCouncil,allowed:2});
+//                 } else {
+//                     res.send("You've opened this page" +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
+//                 }
+//             }
+//         })
+//         .catch(err => {
+//             console.error("Error finding user:", err);
+//         });
         
-        User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened2: 1 } }, { new: true })
-            .then(updatedUser => {
-                if (updatedUser) {
-                console.log("User updated successfully:", updatedUser);
-                } else {
-                console.log("User not found.");
-                }
-            })
-            .catch(err => {
-                console.error("Error updating user:", err);
-            });
-      }else{
-        res.sendStatus(404);
-      }
-    } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
-    }
-  });
+//         User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened2: 1 } }, { new: true })
+//             .then(updatedUser => {
+//                 if (updatedUser) {
+//                 console.log("User updated successfully:", updatedUser);
+//                 } else {
+//                 console.log("User not found.");
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error updating user:", err);
+//             });
+//       }else{
+//         res.sendStatus(404);
+//       }
+//     } else {
+//       // If user is not authenticated, redirect to Google OAuth authentication
+//       res.redirect("/auth/google");
+//     }
+//   });
 
-app.get("/vote/phd-council", (req, res) => {
-    if (req.isAuthenticated()) {
-      // If user is authenticated, show "logged in" message
-      if(req.user._json.email.includes("_phd")){
-        var phdCouncil=JSON.parse(fs.readFileSync("phd-council.json"));
-        User.findOne({ email: req.user._json.email})
-        .then(user => {
-            if(user.voted2){
-                res.send("You have already voted.");
-            }else{
-                if (user.opened2<5) {
-                    res.render("phd",{user:req.user._json,council:phdCouncil,allowed:2});
-                } else {
-                    res.send("You've opened this page" +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
-                }
-            }
-        })
-        .catch(err => {
-            console.error("Error finding user:", err);
-        });
+// app.get("/vote/phd-council", (req, res) => {
+//     if (req.isAuthenticated()) {
+//       // If user is authenticated, show "logged in" message
+//       if(req.user._json.email.includes("_phd")){
+//         var phdCouncil=JSON.parse(fs.readFileSync("phd-council.json"));
+//         User.findOne({ email: req.user._json.email})
+//         .then(user => {
+//             if(user.voted2){
+//                 res.send("You have already voted.");
+//             }else{
+//                 if (user.opened2<5) {
+//                     res.render("phd",{user:req.user._json,council:phdCouncil,allowed:2});
+//                 } else {
+//                     res.send("You've opened this page" +user.opened2+" times. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
+//                 }
+//             }
+//         })
+//         .catch(err => {
+//             console.error("Error finding user:", err);
+//         });
         
-        User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened2: 1 } }, { new: true })
-            .then(updatedUser => {
-                if (updatedUser) {
-                console.log("User updated successfully:", updatedUser);
-                } else {
-                console.log("User not found.");
-                }
-            })
-            .catch(err => {
-                console.error("Error updating user:", err);
-            });
-      }else{
-        res.sendStatus(404);
-      }
-    } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
-    }
-  });
+//         User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened2: 1 } }, { new: true })
+//             .then(updatedUser => {
+//                 if (updatedUser) {
+//                 console.log("User updated successfully:", updatedUser);
+//                 } else {
+//                 console.log("User not found.");
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error updating user:", err);
+//             });
+//       }else{
+//         res.sendStatus(404);
+//       }
+//     } else {
+//       // If user is not authenticated, redirect to Google OAuth authentication
+//       res.redirect("/auth/google");
+//     }
+//   });
 
-  app.post("/submit-votes/ug", (req, res) => {
-    var message="";
-    if (req.isAuthenticated()) {
-        if(req.user._json.email.includes("_ug") || req.user._json.email.includes("_asp")){
-            User.findOne({ email: req.user._json.email})
-            .then(user => {
-                if (!user.voted2) {
-                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
-                    uniqueAffiliations=uniqueAffiliations.slice(0,15); // maximum of 15 allowed
-                    uniqueAffiliations.forEach(affiliation => {
-                        // Create a newVote for each unique affiliation
-                        fs.readFile('ug-council.json', 'utf8', (err, data) => {
-                            if (err) {
-                              console.error('Error reading file:', err);
-                              return;
-                            }
+//   app.post("/submit-votes/ug", (req, res) => {
+//     var message="";
+//     if (req.isAuthenticated()) {
+//         if(req.user._json.email.includes("_ug") || req.user._json.email.includes("_asp")){
+//             User.findOne({ email: req.user._json.email})
+//             .then(user => {
+//                 if (!user.voted2) {
+//                     var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+//                     uniqueAffiliations=uniqueAffiliations.slice(0,15); // maximum of 15 allowed
+//                     uniqueAffiliations.forEach(affiliation => {
+//                         // Create a newVote for each unique affiliation
+//                         fs.readFile('ug-council.json', 'utf8', (err, data) => {
+//                             if (err) {
+//                               console.error('Error reading file:', err);
+//                               return;
+//                             }
                           
-                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
-                            allowedAffiliations.push("4fe0588e-9bbf-4128-914b-838439288224"); // NOTA id
-                            if(allowedAffiliations.includes(affiliation)){
-                                const newVote = new Vote({
-                                    identifier: affiliation,
-                                    type: "UG",
-                                });
-                                // Save the newVote to the database
-                                newVote.save().then(() => {
-                                    console.log(`New vote created for affiliation: ${affiliation}`);
-                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
-                                    .then(updatedUser => {
-                                        if (updatedUser) {
-                                          console.log("User updated successfully:", updatedUser);
-                                          res.send("Your vote was registered. Thank you for your time.");
-                                        } else {
-                                          console.log("User not found.");
-                                          message+="User not found.";
-                                        }
-                                    })
-                                    .catch(err => {
-                                        console.error("Error updating user:", err);
-                                        message+="An error occurred.";
-                                    });
-                                }).catch(err => {
-                                    console.error('Error creating new vote:', err);
-                                    message+="An error occurred.";
-                                });
-                                log.info('vote ', affiliation, ' type ', "UG ", new Date().toJSON());
-                            }else{
-                                console.log("No such affiliation for: "+ affiliation);
-                                message+="An error occurred.";
-                            }  
-                          });
-                    });
-                } else {
-                    message=+"Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.";
-                }
-            })
-            .catch(err => {
-                console.error("Error finding user:", err);
-                message+="Error finding user";
-            });
-        }else{
-          res.send("Not an eligible student.");
-        }
-    } else {
-      res.redirect("/");
-    }
-  });
+//                             var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+//                             allowedAffiliations.push("4fe0588e-9bbf-4128-914b-838439288224"); // NOTA id
+//                             if(allowedAffiliations.includes(affiliation)){
+//                                 const newVote = new Vote({
+//                                     identifier: affiliation,
+//                                     type: "UG",
+//                                 });
+//                                 // Save the newVote to the database
+//                                 newVote.save().then(() => {
+//                                     console.log(`New vote created for affiliation: ${affiliation}`);
+//                                     User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
+//                                     .then(updatedUser => {
+//                                         if (updatedUser) {
+//                                           console.log("User updated successfully:", updatedUser);
+//                                           res.send("Your vote was registered. Thank you for your time.");
+//                                         } else {
+//                                           console.log("User not found.");
+//                                           message+="User not found.";
+//                                         }
+//                                     })
+//                                     .catch(err => {
+//                                         console.error("Error updating user:", err);
+//                                         message+="An error occurred.";
+//                                     });
+//                                 }).catch(err => {
+//                                     console.error('Error creating new vote:', err);
+//                                     message+="An error occurred.";
+//                                 });
+//                                 log.info('vote ', affiliation, ' type ', "UG ", new Date().toJSON());
+//                             }else{
+//                                 console.log("No such affiliation for: "+ affiliation);
+//                                 message+="An error occurred.";
+//                             }  
+//                           });
+//                     });
+//                 } else {
+//                     message=+"Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.";
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error finding user:", err);
+//                 message+="Error finding user";
+//             });
+//         }else{
+//           res.send("Not an eligible student.");
+//         }
+//     } else {
+//       res.redirect("/");
+//     }
+//   });
   
 
-  app.post("/submit-votes/masters", (req, res) => {
-    if (req.isAuthenticated()) {
-        if(req.user._json.email.includes("_ma") || req.user._json.email.includes("_msc")){
-            User.findOne({ email: req.user._json.email})
-            .then(user => {
-                if (!user.voted2) {
-                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
-                    uniqueAffiliations=uniqueAffiliations.slice(0,2); // maximum of 2 allowed
-                    uniqueAffiliations.forEach(affiliation => {
-                        fs.readFile('masters-council.json', 'utf8', (err, data) => {
-                            if (err) {
-                              console.error('Error reading file:', err);
-                              return;
-                            }
+//   app.post("/submit-votes/masters", (req, res) => {
+//     if (req.isAuthenticated()) {
+//         if(req.user._json.email.includes("_ma") || req.user._json.email.includes("_msc")){
+//             User.findOne({ email: req.user._json.email})
+//             .then(user => {
+//                 if (!user.voted2) {
+//                     var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+//                     uniqueAffiliations=uniqueAffiliations.slice(0,2); // maximum of 2 allowed
+//                     uniqueAffiliations.forEach(affiliation => {
+//                         fs.readFile('masters-council.json', 'utf8', (err, data) => {
+//                             if (err) {
+//                               console.error('Error reading file:', err);
+//                               return;
+//                             }
                           
-                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
-                            allowedAffiliations.push("ef0b976e-c1c0-4e4c-a015-0cf81ac47fd3"); // NOTA id
-                            if(allowedAffiliations.includes(affiliation)){
-                                const newVote = new Vote({
-                                    identifier: affiliation,
-                                    type: "MASTERS",
-                                });
+//                             var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+//                             allowedAffiliations.push("ef0b976e-c1c0-4e4c-a015-0cf81ac47fd3"); // NOTA id
+//                             if(allowedAffiliations.includes(affiliation)){
+//                                 const newVote = new Vote({
+//                                     identifier: affiliation,
+//                                     type: "MASTERS",
+//                                 });
         
-                                // Save the newVote to the database
-                                newVote.save().then(() => {
-                                    console.log(`New vote created for affiliation: ${affiliation}`);
-                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
-                                    .then(updatedUser => {
-                                        if (updatedUser) {
-                                        console.log("User updated successfully:", updatedUser);
-                                        res.send("Your vote was registered. Thank you for your time.")
-                                        } else {
-                                        console.log("User not found.");
-                                        }
-                                    })
-                                    .catch(err => {
-                                        console.error("Error updating user:", err);
-                                    });
-                                }).catch(err => {
-                                    console.error('Error creating new vote:', err);
-                                });
-                                log.info('vote ', affiliation, ' type ', "MASTERS ", new Date().toJSON());
-                            }else{
-                                console.log("No such affiliation for: "+ affiliation);
-                            }
+//                                 // Save the newVote to the database
+//                                 newVote.save().then(() => {
+//                                     console.log(`New vote created for affiliation: ${affiliation}`);
+//                                     User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
+//                                     .then(updatedUser => {
+//                                         if (updatedUser) {
+//                                         console.log("User updated successfully:", updatedUser);
+//                                         res.send("Your vote was registered. Thank you for your time.")
+//                                         } else {
+//                                         console.log("User not found.");
+//                                         }
+//                                     })
+//                                     .catch(err => {
+//                                         console.error("Error updating user:", err);
+//                                     });
+//                                 }).catch(err => {
+//                                     console.error('Error creating new vote:', err);
+//                                 });
+//                                 log.info('vote ', affiliation, ' type ', "MASTERS ", new Date().toJSON());
+//                             }else{
+//                                 console.log("No such affiliation for: "+ affiliation);
+//                             }
                           
-                          });
-                    });
-                } else {
-                    res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
-                }
-            })
-            .catch(err => {
-                console.error("Error finding user:", err);
-            });
-        }else{
-            res.send("Not an eligible student.");
-        }
-      console.log(req.body);
-    } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
-    }
-  });
+//                           });
+//                     });
+//                 } else {
+//                     res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error finding user:", err);
+//             });
+//         }else{
+//             res.send("Not an eligible student.");
+//         }
+//       console.log(req.body);
+//     } else {
+//       // If user is not authenticated, redirect to Google OAuth authentication
+//       res.redirect("/auth/google");
+//     }
+//   });
 
 
-  app.post("/submit-votes/phd", (req, res) => {
-    if (req.isAuthenticated()) {
-        if(req.user._json.email.includes("_phd")){
-            User.findOne({ email: req.user._json.email})
-            .then(user => {
-                if (!user.voted2) {
-                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
-                    uniqueAffiliations=uniqueAffiliations.slice(0,2); // maximum of 2 allowed
-                    uniqueAffiliations.forEach(affiliation => {
-                        fs.readFile('phd-council.json', 'utf8', (err, data) => {
-                            if (err) {
-                              console.error('Error reading file:', err);
-                              return;
-                            }
+//   app.post("/submit-votes/phd", (req, res) => {
+//     if (req.isAuthenticated()) {
+//         if(req.user._json.email.includes("_phd")){
+//             User.findOne({ email: req.user._json.email})
+//             .then(user => {
+//                 if (!user.voted2) {
+//                     var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+//                     uniqueAffiliations=uniqueAffiliations.slice(0,2); // maximum of 2 allowed
+//                     uniqueAffiliations.forEach(affiliation => {
+//                         fs.readFile('phd-council.json', 'utf8', (err, data) => {
+//                             if (err) {
+//                               console.error('Error reading file:', err);
+//                               return;
+//                             }
                           
-                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
-                            allowedAffiliations.push("de83a521-3d47-4671-b49d-2cd4feeb98b4"); // NOTA id
-                            if(allowedAffiliations.includes(affiliation)){
-                                const newVote = new Vote({
-                                    identifier: affiliation,
-                                    type: "PHD",
-                                });
+//                             var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+//                             allowedAffiliations.push("de83a521-3d47-4671-b49d-2cd4feeb98b4"); // NOTA id
+//                             if(allowedAffiliations.includes(affiliation)){
+//                                 const newVote = new Vote({
+//                                     identifier: affiliation,
+//                                     type: "PHD",
+//                                 });
         
-                                // Save the newVote to the database
-                                newVote.save().then(() => {
-                                    console.log(`New vote created for affiliation: ${affiliation}`);
-                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
-                                    .then(updatedUser => {
-                                        if (updatedUser) {
-                                        console.log("User updated successfully:", updatedUser);
-                                        res.send("Your vote was registered. Thank you for your time.")
-                                        } else {
-                                        console.log("User not found.");
-                                        }
-                                    })
-                                    .catch(err => {
-                                        console.error("Error updating user:", err);
-                                    });
-                                }).catch(err => {
-                                    console.error('Error creating new vote:', err);
-                                });
-                                log.info('vote ', affiliation, ' type ', "PHD ", new Date().toJSON());
-                            }else{
-                                console.log("No such affiliation for: "+ affiliation);
-                            }
+//                                 // Save the newVote to the database
+//                                 newVote.save().then(() => {
+//                                     console.log(`New vote created for affiliation: ${affiliation}`);
+//                                     User.findOneAndUpdate({ email: req.user._json.email }, { voted2:true })
+//                                     .then(updatedUser => {
+//                                         if (updatedUser) {
+//                                         console.log("User updated successfully:", updatedUser);
+//                                         res.send("Your vote was registered. Thank you for your time.")
+//                                         } else {
+//                                         console.log("User not found.");
+//                                         }
+//                                     })
+//                                     .catch(err => {
+//                                         console.error("Error updating user:", err);
+//                                     });
+//                                 }).catch(err => {
+//                                     console.error('Error creating new vote:', err);
+//                                 });
+//                                 log.info('vote ', affiliation, ' type ', "PHD ", new Date().toJSON());
+//                             }else{
+//                                 console.log("No such affiliation for: "+ affiliation);
+//                             }
                           
-                          });
-                    });
-                } else {
-                    res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
-                }
-            })
-            .catch(err => {
-                console.error("Error finding user:", err);
-            });
-        }else{
-            res.send("Not an eligible student.");
-        }
-    } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
-    }
-  });
+//                           });
+//                     });
+//                 } else {
+//                     res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error finding user:", err);
+//             });
+//         }else{
+//             res.send("Not an eligible student.");
+//         }
+//     } else {
+//       // If user is not authenticated, redirect to Google OAuth authentication
+//       res.redirect("/auth/google");
+//     }
+//   });
 
 
-  app.post("/submit-votes/president", (req, res) => {
-    if (req.isAuthenticated()) {
-        if(req.user._json.email.includes("_")){
-            User.findOne({ email: req.user._json.email})
-            .then(user => {
-                if (!user.voted1) {
-                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
-                    uniqueAffiliations=uniqueAffiliations.slice(0,1); // maximum of 1 allowed
-                    uniqueAffiliations.forEach(affiliation => {
-                        fs.readFile('president.json', 'utf8', (err, data) => {
-                            if (err) {
-                              console.error('Error reading file:', err);
-                              return;
-                            }
+//   app.post("/submit-votes/president", (req, res) => {
+//     if (req.isAuthenticated()) {
+//         if(req.user._json.email.includes("_")){
+//             User.findOne({ email: req.user._json.email})
+//             .then(user => {
+//                 if (!user.voted1) {
+//                     var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+//                     uniqueAffiliations=uniqueAffiliations.slice(0,1); // maximum of 1 allowed
+//                     uniqueAffiliations.forEach(affiliation => {
+//                         fs.readFile('president.json', 'utf8', (err, data) => {
+//                             if (err) {
+//                               console.error('Error reading file:', err);
+//                               return;
+//                             }
                           
-                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
-                            allowedAffiliations.push("c1b383d6-0534-4f47-8c18-ec4212fd0e8a"); // NOTA id
-                            if(allowedAffiliations.includes(affiliation)){
-                                const newVote = new Vote({
-                                    identifier: affiliation,
-                                    type: "PRESIDENT",
-                                });
+//                             var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+//                             allowedAffiliations.push("c1b383d6-0534-4f47-8c18-ec4212fd0e8a"); // NOTA id
+//                             if(allowedAffiliations.includes(affiliation)){
+//                                 const newVote = new Vote({
+//                                     identifier: affiliation,
+//                                     type: "PRESIDENT",
+//                                 });
         
-                                // Save the newVote to the database
-                                newVote.save().then(() => {
-                                    console.log(`New vote created for affiliation: ${affiliation}`);
-                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted1:true })
-                                    .then(updatedUser => {
-                                        if (updatedUser) {
-                                        console.log("User updated successfully:", updatedUser);
-                                        res.send("Your vote was registered. Thank you for your time.")
-                                        } else {
-                                        console.log("User not found.");
-                                        }
-                                    })
-                                    .catch(err => {
-                                        console.error("Error updating user:", err);
-                                    });
-                                }).catch(err => {
-                                    console.error('Error creating new vote:', err);
-                                });
-                                log.info('vote ', affiliation, ' type ', "PRESIDENT ", new Date().toJSON());
-                            }else{
-                                console.log("No such affiliation for: "+ affiliation);
-                            }
-                          });
-                    });
-                } else {
-                    res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
-                }
-            })
-            .catch(err => {
-                console.error("Error finding user:", err);
-            });
-        }else{
-            res.send("Not an eligible student.");
-        }
-      console.log(req.body);
-    } else {
-      // If user is not authenticated, redirect to Google OAuth authentication
-      res.redirect("/auth/google");
-    }
-  });
+//                                 // Save the newVote to the database
+//                                 newVote.save().then(() => {
+//                                     console.log(`New vote created for affiliation: ${affiliation}`);
+//                                     User.findOneAndUpdate({ email: req.user._json.email }, { voted1:true })
+//                                     .then(updatedUser => {
+//                                         if (updatedUser) {
+//                                         console.log("User updated successfully:", updatedUser);
+//                                         res.send("Your vote was registered. Thank you for your time.")
+//                                         } else {
+//                                         console.log("User not found.");
+//                                         }
+//                                     })
+//                                     .catch(err => {
+//                                         console.error("Error updating user:", err);
+//                                     });
+//                                 }).catch(err => {
+//                                     console.error('Error creating new vote:', err);
+//                                 });
+//                                 log.info('vote ', affiliation, ' type ', "PRESIDENT ", new Date().toJSON());
+//                             }else{
+//                                 console.log("No such affiliation for: "+ affiliation);
+//                             }
+//                           });
+//                     });
+//                 } else {
+//                     res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
+//                 }
+//             })
+//             .catch(err => {
+//                 console.error("Error finding user:", err);
+//             });
+//         }else{
+//             res.send("Not an eligible student.");
+//         }
+//       console.log(req.body);
+//     } else {
+//       // If user is not authenticated, redirect to Google OAuth authentication
+//       res.redirect("/auth/google");
+//     }
+//   });
 
 app.get("/summary", function(req,res){
     if(req.query.key==111222333 && req.query.toy==333222111){
@@ -696,6 +696,7 @@ app.get("/summary", function(req,res){
         res.sendStatus(404);
       }
 });
+
 
 
 app.get("/auth/google", passport.authenticate("google", { hd: 'ashoka.edu.in', scope: ["profile", "email"] }));
