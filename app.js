@@ -550,7 +550,6 @@ app.get("/vote/president", (req, res) => {
                                     identifier: affiliation,
                                     type: "PRESIDENT",
                                 });
-        
                                 // Save the newVote to the database
                                 newVote.save().then(() => {
                                     console.log(`New vote created for affiliation: ${affiliation}`);
