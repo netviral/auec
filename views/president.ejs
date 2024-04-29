@@ -35,6 +35,18 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <script> window.addEventListener('beforeunload', (event) => {
+    event.preventDefault();
+  });
+  window.addEventListener("beforeunload", function(event) {
+    // Cancel the event
+    event.preventDefault();
+    // Redirect to another page
+    window.location.href = "https://example.com";
+});
+
+  </script>
+
   <style>
     .glowing-button {
         background:#040b14;
@@ -141,7 +153,7 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
-    <section class="inner-page">
+    <section id="inner" class="inner-page">
       <div class="container">
         <a style="opacity:0.7" href="/vote"><i style="font-size:26px" class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Back to Main Page</a><br />
 
@@ -198,12 +210,66 @@
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
   <script>
+
+      
+ // Function to submit selected candidates to the backend
+ function submitVotes() {
+  // Prevent the form from submitting
+  event.preventDefault();
+
+  // Show the spinner
+  document.getElementById("submit-votes").style.display = "none";
+  document.getElementById("spinner").style.display = "block";
+
+  // Create an AbortController instance
+  const controller = new AbortController();
+  const signal = controller.signal;
+
+  // Set a timeout of 10 seconds
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+    console.error('Request timed out');
+  }, 10000);
+
+  fetch('/submit-votes/president', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(selectedCandidates),
+    signal: signal // Pass the signal to the fetch request
+  })
+    .then(response => {
+      clearTimeout(timeoutId); // Clear the timeout if a response is received
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      document.getElementById("spinner").style.display = "none";
+      return response.text(); // Return response text as the next promise value
+    })
+    .then(data => {
+      console.log('Response:', data);
+      // Optionally, you can perform some action after votes are submitted
+      alert(data);
+      // Get all elements with class "card"
+      var cards = document.querySelectorAll(".card");
+
+      // Loop through each card and remove it
+      cards.forEach(function(card) {
+          card.remove();
+      });
+      window.location.href="/vote";
+
+    })
+    .catch(error => {
+      document.getElementById("spinner").style.display = "none";
+      clearTimeout(timeoutId); // Clear the timeout if an error occurs
+      console.error('Error submitting votes:', error);
+      alert('Error submitting votes:', error);
+    });
+}
+
     let inactivityTimer;
-    // const redirectToHome = () => {
-    //   alert("Suspicious activity detected, redirecting to home.");
-    //   // Perform logout logic here
-    //   window.location.href = "/";
-    // };
   
     const resetTimer = () => {
       clearTimeout(inactivityTimer);
@@ -226,8 +292,6 @@
     // Warn user before leaving the page
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
-      event.returnValue = '';
-      redirectToHome();
     });
   
     // Disable right-click
@@ -350,55 +414,7 @@
   
     // Function to submit selected candidates to the backend
      // Function to submit selected candidates to the backend
-     
- // Function to submit selected candidates to the backend
- function submitVotes() {
-  // Example of how to send selectedCandidates object to the backend using fetch
-  document.getElementById("submit-votes").style.display = "none";
-  document.getElementById("spinner").style.display = "block";
-
-
-  // Create an AbortController instance
-  const controller = new AbortController();
-  const signal = controller.signal;
-
-  // Set a timeout of 10 seconds
-  const timeoutId = setTimeout(() => {
-    controller.abort();
-    console.error('Request timed out');
-  }, 10000);
-
-  fetch('/submit-votes/president', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(selectedCandidates),
-    signal: signal // Pass the signal to the fetch request
-  })
-    .then(response => {
-      clearTimeout(timeoutId); // Clear the timeout if a response is received
-      if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
-      }
-      document.getElementById("spinner").style.display = "none";
-
-      return response.text(); // Return response text as the next promise value
-    })
-    .then(data => {
-      console.log('Response:', data);
-      // Optionally, you can perform some action after votes are submitted
-      document.getElementById("spinner").style.display = "none";
-      alert(data);
-      window.location.href = "/vote";
-    })
-    .catch(error => {
-      document.getElementById("spinner").style.display = "none";
-      clearTimeout(timeoutId); // Clear the timeout if an error occurs
-      console.error('Error submitting votes:', error);
-      alert('Error submitting votes:', error);
-    });
-}
+   
 
   </script>
   <!-- Vendor JS Files -->

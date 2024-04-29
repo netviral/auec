@@ -173,7 +173,8 @@ app.get("/vote/president", (req, res) => {
             User.findOne({ email: req.user._json.email})
             .then(user => {
                 if(user.voted1){
-                    res.send("You have already voted.");
+                    // res.send("You have already voted.");
+                    res.redirect("/vote");
                 }else{
                     if (user.opened1<5) {
                         res.render("president",{user:req.user._json,council:pairs,allowed:1});
@@ -557,7 +558,7 @@ app.get("/vote/president", (req, res) => {
                                     .then(updatedUser => {
                                         if (updatedUser) {
                                         console.log("User updated successfully:", updatedUser);
-                                        res.send("Your vote was registered. Thank you for your time.")
+                                        res.send("Your vote was registered. Thank you for your time. On the popup after this, please select 'Leave Site', rest assured your vote is saved with us.");
                                         } else {
                                         console.log("User not found.");
                                         }
@@ -720,7 +721,6 @@ app.get("/re-summary", function(req,res){
       getVoted1UserCount(), // how many users have voted for presidential elections
     ]).then(([totalUserCount, voted1UserCount]) => {
       res.render('re-res', {
-        voteCounts: voteCounts,
         totalUserCount: totalUserCount,
         voted1UserCount: voted1UserCount,
       });
