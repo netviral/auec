@@ -80,7 +80,7 @@
       <nav class="nav-menu">
         <ul>
           <li><a href="/#hero"><i class="bx bx-home"></i> <span>Home</span></a></li>
-          <li class="active"><a href="/instructions"><i class="bx bx-server"></i> Cast Your Vote</a></li>
+          <li class="active"><a href="/vote"><i class="bx bx-server"></i> Cast Your Vote</a></li>
           <li><a href="/#about"><i class="bx bx-user"></i> <span>About AUEC</span></a></li>
           <li><a href="/#resume"><i class="bx bx-file-blank"></i> <span>Structure of SG</span></a></li>
           <li><a href="/#portfolio"><i class="bx bx-book-content"></i> Candidates</a></li>
@@ -112,7 +112,7 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
-    <section class="inner-page">
+    <section style="margin:20px; padding:30px;" class="inner-page">
       <div class="containerv">
         <div style="display:block" id="1">
           Welcome to the voting portal. Here are some general guidelines:
@@ -120,8 +120,11 @@
             <li>Read each option carefully before making your choice.</li>
             <li>Vote based on your own judgment and beliefs.</li>
             <li>Ensure you have a stable internet connection.</li>
-          </ul>    
+          </ul>  
+          <br />  
           <button type="submit" class="glowing-button" onclick="toggleParagraphs(2)">Next</button>
+          <button type="submit" class="glowing-button" onclick="window.location.href='/vote'">Skip Instructions</button>
+
     
         </div>
         <div style="display:none" id="2">
@@ -132,6 +135,7 @@
       <li>Report any suspicious activity or misactions immediately.</li>
     </ul>
     <button type="submit" class="glowing-button" onclick="toggleParagraphs(3)">Next</button>
+    <button type="submit" class="glowing-button" onclick="window.location.href='/vote'">Skip Instructions</button>
 
   </div>
         <div style="display:none" id="3">
@@ -142,6 +146,8 @@
       <li>If you encounter any issues, contact support.</li>
     </ul>
     <button type="submit" class="glowing-button" onclick="toggleParagraphs(4)">Next</button>
+    <button type="submit" class="glowing-button" onclick="window.location.href='/vote'">Skip Instructions</button>
+
 
   </div>
         <div style="display:none" id="4">
@@ -167,11 +173,15 @@
           </table>
           <p>When you vote for a candidate, we add 1 to their vote count without storing your identity.</p>
           <button type="submit" class="glowing-button" onclick="toggleParagraphs(5)">Next</button>
+          <button type="submit" class="glowing-button" onclick="window.location.href='/vote'">Skip Instructions</button>
+
 
         </div>
         <div style="display:none" id="5">
           Thank you for participating in the voting process. Your contribution is valuable.<br />
           <button type="submit" class="glowing-button" onclick="toggleParagraphs(6)">Next</button>
+          <button type="submit" class="glowing-button" onclick="window.location.href='/vote'">Skip</button>
+
 
         </div>
         <div style="display:none" id="6">
