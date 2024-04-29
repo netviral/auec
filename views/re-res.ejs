@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vote Data</title>
+  <style>
+    table {
+      width: 50%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vote Data</h1>
+  <div style="margin:40px">
+    <h2>Summary of All Voters:</h2>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Count</th>
+      </tr>
+      <tr>
+        <td>Total Users On Site</td>
+        <td><%= totalUserCount %></td>
+      </tr>
+      <tr>
+        <td>People Who Voted For Presidential Re-Elections</td>
+        <td><%= voted1UserCount %></td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

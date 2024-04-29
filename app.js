@@ -8,7 +8,7 @@ dotenv.config({ path: "./.env" });
 // create a custom timestamp format for log statements
 const SimpleNodeLogger = require('simple-node-logger'),
 	opts = {
-		logFilePath:'backup-votes.log',
+		logFilePath:'re-backup-votes.log',
 		timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 	},
 log = SimpleNodeLogger.createSimpleLogger( opts );
@@ -20,7 +20,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const fs=require("fs");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
-
 // Configure Google OAuth 2.0 strategy for Passport.js
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
@@ -135,77 +134,77 @@ app.get("/", (req, res) => {
     }
 });
 
-// app.get("/instructions", (req, res) => {
-//     if (req.isAuthenticated()) {
-//       // If user is authenticated, show "logged in" message
-//       res.render("inner-page",{user:req.user._json});
-//     } else {
-//       // If user is not authenticated, redirect to Google OAuth authentication
-//       res.redirect("/auth/google");
-//     }
-//   });
+app.get("/instructions", (req, res) => {
+    if (req.isAuthenticated()) {
+      // If user is authenticated, show "logged in" message
+      res.render("inner-page",{user:req.user._json});
+    } else {
+      // If user is not authenticated, redirect to Google OAuth authentication
+      res.redirect("/auth/google");
+    }
+  });
 
-// app.get("/vote", (req, res) => {
-//     if (req.isAuthenticated()) {
-//       // If user is authenticated, show "logged in" message
-//       User.findOne({ email: req.user._json.email})
-//             .then(user => {
-//                 var voted1=user.voted1;
-//                 var voted2=user.voted2;
-//                 var opened1Twice=user.opened1<5?false:true;
-//                 var opened2Twice=user.opened2<5?false:true;
-//                 res.render("voting",{user:user,voted1:voted1,voted2:voted2,opened1Twice:opened1Twice,opened2Twice:opened2Twice});
-//             })
-//             .catch(err => {
-//                 console.error("Error finding user:", err);
-//                 res.redirect("/");
-//         });
-//     } else {
-//       // If user is not authenticated, redirect to Google OAuth authentication
-//       res.redirect("/auth/google");
-//     }
-//   });
+app.get("/vote", (req, res) => {
+    if (req.isAuthenticated()) {
+      // If user is authenticated, show "logged in" message
+      User.findOne({ email: req.user._json.email})
+            .then(user => {
+                var voted1=user.voted1;
+                var voted2=user.voted2;
+                var opened1Twice=user.opened1<5?false:true;
+                var opened2Twice=user.opened2<5?false:true;
+                res.render("voting",{user:user,voted1:voted1,voted2:voted2,opened1Twice:opened1Twice,opened2Twice:opened2Twice});
+            })
+            .catch(err => {
+                console.error("Error finding user:", err);
+                res.redirect("/");
+        });
+    } else {
+      // If user is not authenticated, redirect to Google OAuth authentication
+      res.redirect("/auth/google");
+    }
+  });
 
-// app.get("/vote/president", (req, res) => {
-//     if (req.isAuthenticated()) {
-//         if(req.user._json.email.includes("_")){
-//             // If user is authenticated, show "logged in" message
-//             var pairs=JSON.parse(fs.readFileSync("president.json"));
-//             User.findOne({ email: req.user._json.email})
-//             .then(user => {
-//                 if(user.voted1){
-//                     res.send("You have already voted.");
-//                 }else{
-//                     if (user.opened1<5) {
-//                         res.render("president",{user:req.user._json,council:pairs,allowed:1});
-//                     } else {
-//                         res.send("You've opened this page " +user.opened1+" times, hence quarantined. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
-//                     }
-//                 }
-//             })
-//             .catch(err => {
-//                 console.error("Error finding user:", err);
-//             });
+app.get("/vote/president", (req, res) => {
+    if (req.isAuthenticated()) {
+        if(req.user._json.email.includes("_")){
+            // If user is authenticated, show "logged in" message
+            var pairs=JSON.parse(fs.readFileSync("re-president.json"));
+            User.findOne({ email: req.user._json.email})
+            .then(user => {
+                if(user.voted1){
+                    res.send("You have already voted.");
+                }else{
+                    if (user.opened1<5) {
+                        res.render("president",{user:req.user._json,council:pairs,allowed:1});
+                    } else {
+                        res.send("You've opened this page " +user.opened1+" times, hence quarantined. Please contact the developers at ibrahim.khalil_ug25@ashoka.edu.in.")
+                    }
+                }
+            })
+            .catch(err => {
+                console.error("Error finding user:", err);
+            });
 
-//             User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened1: 1 } }, { new: true })
-//             .then(updatedUser => {
-//                 if (updatedUser) {
-//                 console.log("User updated successfully:", updatedUser);
-//                 } else {
-//                 console.log("User not found.");
-//                 }
-//             })
-//             .catch(err => {
-//                 console.error("Error updating user:", err);
-//             });
-//         }else{
-//             res.send("Only students allowed to vote!")
-//         }
-//       } else {
-//         // If user is not authenticated, redirect to Google OAuth authentication
-//         res.redirect("/auth/google");
-//       }
-// });
+            User.findOneAndUpdate({ email: req.user._json.email }, { $inc: { opened1: 1 } }, { new: true })
+            .then(updatedUser => {
+                if (updatedUser) {
+                console.log("User updated successfully:", updatedUser);
+                } else {
+                console.log("User not found.");
+                }
+            })
+            .catch(err => {
+                console.error("Error updating user:", err);
+            });
+        }else{
+            res.send("Only students allowed to vote!")
+        }
+      } else {
+        // If user is not authenticated, redirect to Google OAuth authentication
+        res.redirect("/auth/google");
+      }
+});
 
 // app.get("/vote/ug-council", (req, res) => {
 //     if (req.isAuthenticated()) {
@@ -528,173 +527,209 @@ app.get("/", (req, res) => {
 //       res.redirect("/auth/google");
 //     }
 //   });
-
-
-//   app.post("/submit-votes/president", (req, res) => {
-//     if (req.isAuthenticated()) {
-//         if(req.user._json.email.includes("_")){
-//             User.findOne({ email: req.user._json.email})
-//             .then(user => {
-//                 if (!user.voted1) {
-//                     var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
-//                     uniqueAffiliations=uniqueAffiliations.slice(0,1); // maximum of 1 allowed
-//                     uniqueAffiliations.forEach(affiliation => {
-//                         fs.readFile('president.json', 'utf8', (err, data) => {
-//                             if (err) {
-//                               console.error('Error reading file:', err);
-//                               return;
-//                             }
+  app.post("/submit-votes/president", (req, res) => {
+    if (req.isAuthenticated()) {
+        if(req.user._json.email.includes("_")){
+            User.findOne({ email: req.user._json.email})
+            .then(user => {
+                if (!user.voted1) {
+                    var uniqueAffiliations = [...new Set(Object.values(req.body).map(item => item.affiliation))];
+                    uniqueAffiliations=uniqueAffiliations.slice(0,1); // maximum of 1 allowed
+                    uniqueAffiliations.forEach(affiliation => {
+                        fs.readFile('re-president.json', 'utf8', (err, data) => {
+                            if (err) {
+                              console.error('Error reading file:', err);
+                              return;
+                            }
                           
-//                             var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
-//                             allowedAffiliations.push("c1b383d6-0534-4f47-8c18-ec4212fd0e8a"); // NOTA id
-//                             if(allowedAffiliations.includes(affiliation)){
-//                                 const newVote = new Vote({
-//                                     identifier: affiliation,
-//                                     type: "PRESIDENT",
-//                                 });
+                            var allowedAffiliations = [...new Set(JSON.parse(data).map(obj => obj.uuid))];
+                            allowedAffiliations.push("4ba36c5f-9f7e-466b-ad52-d8c46f09b01e"); // NOTA id
+                            if(allowedAffiliations.includes(affiliation)){
+                                const newVote = new Vote({
+                                    identifier: affiliation,
+                                    type: "PRESIDENT",
+                                });
         
-//                                 // Save the newVote to the database
-//                                 newVote.save().then(() => {
-//                                     console.log(`New vote created for affiliation: ${affiliation}`);
-//                                     User.findOneAndUpdate({ email: req.user._json.email }, { voted1:true })
-//                                     .then(updatedUser => {
-//                                         if (updatedUser) {
-//                                         console.log("User updated successfully:", updatedUser);
-//                                         res.send("Your vote was registered. Thank you for your time.")
-//                                         } else {
-//                                         console.log("User not found.");
-//                                         }
-//                                     })
-//                                     .catch(err => {
-//                                         console.error("Error updating user:", err);
-//                                     });
-//                                 }).catch(err => {
-//                                     console.error('Error creating new vote:', err);
-//                                 });
-//                                 log.info('vote ', affiliation, ' type ', "PRESIDENT ", new Date().toJSON());
-//                             }else{
-//                                 console.log("No such affiliation for: "+ affiliation);
-//                             }
-//                           });
-//                     });
-//                 } else {
-//                     res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
-//                 }
-//             })
-//             .catch(err => {
-//                 console.error("Error finding user:", err);
-//             });
-//         }else{
-//             res.send("Not an eligible student.");
-//         }
-//       console.log(req.body);
-//     } else {
-//       // If user is not authenticated, redirect to Google OAuth authentication
-//       res.redirect("/auth/google");
-//     }
-//   });
+                                // Save the newVote to the database
+                                newVote.save().then(() => {
+                                    console.log(`New vote created for affiliation: ${affiliation}`);
+                                    User.findOneAndUpdate({ email: req.user._json.email }, { voted1:true })
+                                    .then(updatedUser => {
+                                        if (updatedUser) {
+                                        console.log("User updated successfully:", updatedUser);
+                                        res.send("Your vote was registered. Thank you for your time.")
+                                        } else {
+                                        console.log("User not found.");
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error("Error updating user:", err);
+                                    });
+                                }).catch(err => {
+                                    console.error('Error creating new vote:', err);
+                                });
+                                log.info('vote ', affiliation, ' type ', "PRESIDENT ", new Date().toJSON());
+                            }else{
+                                console.log("No such affiliation for: "+ affiliation);
+                            }
+                          });
+                    });
+                } else {
+                    res.send("Your vote is already registered. Contact ibrahim.khalil_ug25@ashoka.edu.in in case you feel this is an error.")
+                }
+            })
+            .catch(err => {
+                console.error("Error finding user:", err);
+            });
+        }else{
+            res.send("Not an eligible student.");
+        }
+      console.log(req.body);
+    } else {
+      // If user is not authenticated, redirect to Google OAuth authentication
+      res.redirect("/auth/google");
+    }
+  });
 
-app.get("/summary", function(req,res){
-    if(req.query.key==111222333 && req.query.toy==333222111){
-      const getVoteCountsByType = () => {
-            const counts = {};
-            return Vote.countDocuments({ type: "UG" }).then(count => {
-            counts.UG = count;
-            return Vote.countDocuments({ type: "MASTERS" });
-          }).then(count => {
-            counts.MASTERS = count;
-            return Vote.countDocuments({ type: "PHD" });
-          }).then(count => {
-            counts.PHD = count;
-            return Vote.countDocuments({ type: "PRESIDENT" });
-          }).then(count => {
-            counts.PRESIDENT = count;
-            return counts;
-          }).catch(err => {
-            console.error('Error counting votes by type:', err);
-            throw err;
-          });
-      };
+// app.get("/summary", function(req,res){
+//     if(req.query.key==111222333 && req.query.toy==333222111){
+//       const getVoteCountsByType = () => {
+//             const counts = {};
+//             return Vote.countDocuments({ type: "UG" }).then(count => {
+//             counts.UG = count;
+//             return Vote.countDocuments({ type: "MASTERS" });
+//           }).then(count => {
+//             counts.MASTERS = count;
+//             return Vote.countDocuments({ type: "PHD" });
+//           }).then(count => {
+//             counts.PHD = count;
+//             return Vote.countDocuments({ type: "PRESIDENT" });
+//           }).then(count => {
+//             counts.PRESIDENT = count;
+//             return counts;
+//           }).catch(err => {
+//             console.error('Error counting votes by type:', err);
+//             throw err;
+//           });
+//       };
 
-      const getTotalUserCount = () => {
-        return User.countDocuments().then(count => {
-          return count;
-        }).catch(err => {
-          console.error('Error counting total users:', err);
-          throw err;
-        });
-      };
+//       const getTotalUserCount = () => {
+//         return User.countDocuments().then(count => {
+//           return count;
+//         }).catch(err => {
+//           console.error('Error counting total users:', err);
+//           throw err;
+//         });
+//       };
 
-      const getVoted1UserCount = () => {
-        return User.countDocuments({ voted1: true }).then(count => {
-          return count;
-        }).catch(err => {
-          console.error('Error counting users who voted in presidential election:', err);
-          throw err;
-        });
-      };
+//       const getVoted1UserCount = () => {
+//         return User.countDocuments({ voted1: true }).then(count => {
+//           return count;
+//         }).catch(err => {
+//           console.error('Error counting users who voted in presidential election:', err);
+//           throw err;
+//         });
+//       };
 
-      const getVoted2UserCount = () => {
-        return User.countDocuments({ voted2: true }).then(count => {
-          return count;
-        }).catch(err => {
-          console.error('Error counting users who voted in another election:', err);
-          throw err;
-        });
-      };
+//       const getVoted2UserCount = () => {
+//         return User.countDocuments({ voted2: true }).then(count => {
+//           return count;
+//         }).catch(err => {
+//           console.error('Error counting users who voted in another election:', err);
+//           throw err;
+//         });
+//       };
 
-      const getUGorASPUsersVoted2Count = () => {
-        return User.countDocuments({ $and: [{ $or: [{ email: /_ug/ }, { email: /_asp/ }] }, { voted2: true }] }).then(count => {
-          return count;
-        }).catch(err => {
-          console.error('Error counting users with _ug or _asp in email who voted in another election:', err);
-          throw err;
-        });
-      };
+//       const getUGorASPUsersVoted2Count = () => {
+//         return User.countDocuments({ $and: [{ $or: [{ email: /_ug/ }, { email: /_asp/ }] }, { voted2: true }] }).then(count => {
+//           return count;
+//         }).catch(err => {
+//           console.error('Error counting users with _ug or _asp in email who voted in another election:', err);
+//           throw err;
+//         });
+//       };
 
-      const getMSCorMAUsersVoted2Count = () => {
-        return User.countDocuments({ $and: [{ $or: [{ email: /_msc/ }, { email: /_ma/ }] }, { voted2: true }] }).then(count => {
-          return count;
-        }).catch(err => {
-          console.error('Error counting users with _msc or _ma in email who voted in another election:', err);
-          throw err;
-        });
-      };
+//       const getMSCorMAUsersVoted2Count = () => {
+//         return User.countDocuments({ $and: [{ $or: [{ email: /_msc/ }, { email: /_ma/ }] }, { voted2: true }] }).then(count => {
+//           return count;
+//         }).catch(err => {
+//           console.error('Error counting users with _msc or _ma in email who voted in another election:', err);
+//           throw err;
+//         });
+//       };
 
-      const getPhDUsersVoted2Count = () => {
-        return User.countDocuments({ $and: [{ email: /_phd/ }, { voted2: true }] }).then(count => {
-          return count;
-        }).catch(err => {
-          console.error('Error counting users with _phd in email who voted in another election:', err);
-          throw err;
-        });
-      };
+//       const getPhDUsersVoted2Count = () => {
+//         return User.countDocuments({ $and: [{ email: /_phd/ }, { voted2: true }] }).then(count => {
+//           return count;
+//         }).catch(err => {
+//           console.error('Error counting users with _phd in email who voted in another election:', err);
+//           throw err;
+//         });
+//       };
 
-      // Driver code
-      Promise.all([
-        getVoteCountsByType(), // How many votes for each of UG, Masters and Presidential
-        getTotalUserCount(), // Total users on the site
-        getVoted1UserCount(), // how many users have voted for presidential elections
-        getVoted2UserCount(), // how many users have voted for UG/Masters/PhD in total
-        getUGorASPUsersVoted2Count(), // How many users have voted for UG Council
-        getMSCorMAUsersVoted2Count(), // How many users have voted for Masters Council
-        getPhDUsersVoted2Count() // How many users have voted for PhD Council
-      ]).then(([voteCounts, totalUserCount, voted1UserCount, voted2UserCount, ugOrASPUsersVoted2Count,MSCorMAUsersVoted2Count,PhDUsersVoted2Count]) => {
-        res.render('res', {
-          voteCounts: voteCounts,
-          totalUserCount: totalUserCount,
-          voted1UserCount: voted1UserCount,
-          voted2UserCount: voted2UserCount,
-          ugOrASPUsersVoted2Count: ugOrASPUsersVoted2Count,
-          MSCorMAUsersVoted2Count:MSCorMAUsersVoted2Count,
-          PhDUsersVoted2Count:PhDUsersVoted2Count
-        });
+//       // Driver code
+//       Promise.all([
+//         getVoteCountsByType(), // How many votes for each of UG, Masters and Presidential
+//         getTotalUserCount(), // Total users on the site
+//         getVoted1UserCount(), // how many users have voted for presidential elections
+//         getVoted2UserCount(), // how many users have voted for UG/Masters/PhD in total
+//         getUGorASPUsersVoted2Count(), // How many users have voted for UG Council
+//         getMSCorMAUsersVoted2Count(), // How many users have voted for Masters Council
+//         getPhDUsersVoted2Count() // How many users have voted for PhD Council
+//       ]).then(([voteCounts, totalUserCount, voted1UserCount, voted2UserCount, ugOrASPUsersVoted2Count,MSCorMAUsersVoted2Count,PhDUsersVoted2Count]) => {
+//         res.render('res', {
+//           voteCounts: voteCounts,
+//           totalUserCount: totalUserCount,
+//           voted1UserCount: voted1UserCount,
+//           voted2UserCount: voted2UserCount,
+//           ugOrASPUsersVoted2Count: ugOrASPUsersVoted2Count,
+//           MSCorMAUsersVoted2Count:MSCorMAUsersVoted2Count,
+//           PhDUsersVoted2Count:PhDUsersVoted2Count
+//         });
+//       }).catch(err => {
+//         console.error('Error:', err);
+//       });
+//       }else{
+//         res.sendStatus(404);
+//       }
+// });
+
+
+app.get("/re-summary", function(req,res){
+  if(req.query.key==111222333 && req.query.toy==333222111){
+    const getTotalUserCount = () => {
+      return User.countDocuments().then(count => {
+        return count;
       }).catch(err => {
-        console.error('Error:', err);
+        console.error('Error counting total users:', err);
+        throw err;
       });
-      }else{
-        res.sendStatus(404);
-      }
+    };
+
+    const getVoted1UserCount = () => {
+      return User.countDocuments({ voted1: true }).then(count => {
+        return count;
+      }).catch(err => {
+        console.error('Error counting users who voted in presidential election:', err);
+        throw err;
+      });
+    };
+    // Driver code
+    Promise.all([
+      getTotalUserCount(), // Total users on the site
+      getVoted1UserCount(), // how many users have voted for presidential elections
+    ]).then(([totalUserCount, voted1UserCount]) => {
+      res.render('re-res', {
+        voteCounts: voteCounts,
+        totalUserCount: totalUserCount,
+        voted1UserCount: voted1UserCount,
+      });
+    }).catch(err => {
+      console.error('Error:', err);
+    });
+    }else{
+      res.sendStatus(404);
+    }
 });
 
 app.get("/auth/google", passport.authenticate("google", { hd: 'ashoka.edu.in', scope: ["profile", "email"] }));
