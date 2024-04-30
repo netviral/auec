@@ -731,6 +731,45 @@ app.get("/re-summary", function(req,res){
     }
 });
 
+app.get("/results", async function(req, res) {
+    const getVoteCount = async (candidateName, candidateUuid, type) => {
+      try {
+        const count = await Vote.countDocuments({ identifier: candidateUuid });
+        return [type, candidateName, count];
+      } catch (error) {
+        console.error('Error getting vote count:', error);
+        return [type, candidateName, 0]; // Return 0 if there's an error
+      }
+    };
+
+    var presidentCandidates = JSON.parse(fs.readFileSync("re-president.json"));
+    var finalArray = [];
+
+    // Collect promises from all async calls
+    const promises = [];
+
+    presidentCandidates.forEach(candidate => {
+      promises.push(getVoteCount(candidate.name, candidate.uuid, "PRESIDENT"));
+    });
+    promises.push(getVoteCount("NOTA", "4ba36c5f-9f7e-466b-ad52-d8c46f09b01e", "PRESIDENT"));
+
+    // Wait for all promises to resolve
+    finalArray = await Promise.all(promises);
+    
+    // Log finalArray
+
+    // Respond with finalArray
+
+  // Sort the final array by vote count in descending order
+  finalArray.sort((a, b) => b[2] - a[2]);
+  console.log(finalArray);
+
+  // Render the HTML template with the final array data
+  res.render('final-re-results', {
+    array:finalArray
+  });
+});
+
 app.get("/auth/google", passport.authenticate("google", { hd: 'ashoka.edu.in', scope: ["profile", "email"] }));
 
 app.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {

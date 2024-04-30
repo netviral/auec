@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Results</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .won {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text color */
+            font-weight: bold; /* Bold text */
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Voting Results</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Cohort</th>
+                <th>Name</th>
+                <th>Votes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3"><strong>PRESIDENT</strong></td>
+            </tr>
+            <!-- PRESIDENT candidates -->
+            <%for(var i=0;i<array.length;i++){%>
+                <%if(i<1){%>
+                <tr class="won">
+                    <td><%=i+1%></td>
+                    <td><%= array[i][1] %></td>
+                    <td><%= array[i][2] %></td>
+                </tr>
+                <%}else{%>
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%= array[i][1] %></td>
+                        <td><%= array[i][2] %></td>
+                    </tr>
+                <%}%>
+            <%}%>
+        </tbody>
+    </table>
+</body>
+
+</html>
